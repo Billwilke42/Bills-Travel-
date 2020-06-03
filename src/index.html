@@ -4,9 +4,20 @@
     <title>Travel Tracker</title>
   </head>
   <body>
-    <h1>Travel Tracker</h1>
-
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
+    <section class='side-bar'>
+      <h1>Travel Tracker</h1>
+      <div class='log-in'>
+        <form id='form1'>
+          Log in:
+          <input type='text' id='username' name='user-name' placeholder="username"><br>
+          <input type='text' id='password' name='pass-word' placeholder='password'>
+        </form>
+        <button type='submit' form='form1' value='submit'>Log in</button>
+      </div>
+    </section>
+   <section class='main'>
+     <h2>Welcome to Travel Tracker</h2>
+   </section>
 
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   </body>

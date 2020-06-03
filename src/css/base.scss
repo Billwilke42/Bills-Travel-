@@ -1,7 +1,51 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-;
+$primary-background: #F2987D;
+
 
 body {
   background: $primary-background;
+  display: flex;
+  justify-content: baseline;
+  margin: auto;
 }
+
+.side-bar {
+  display: flex;
+  // align-self: baseline;
+  width: 15vw;
+  flex-direction: column;
+  flex-wrap: wrap;
+  // border: solid black;
+  // margin: 10px;
+  height: 100vh;
+}
+
+h1 {
+  text-align: center;
+}
+
+#password, #username {
+  width: 70%;
+  margin: 10px;
+}
+
+.main {
+  width: 85vw;
+  height: 100vh;
+  background-color: #C1DBDA
+
+
+}
+
+#blockColorblindContent {
+  display: none;
+}
+
+.log-in {
+  background-color: cornsilk;
+  margin: auto;
+  height: 25%;
+  width: 80%;
+}
+
+
