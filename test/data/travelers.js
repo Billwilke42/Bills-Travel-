@@ -1,4 +1,4 @@
-let travelers = [
+let travelersData = [
 {
 "id": 1,
 "name": "Ham Leadbeater",
@@ -50,4 +50,4 @@ let travelers = [
 "travelerType": "relaxer"
 }]
 
-export default travelers;
+export default travelersData;
