@@ -1,4 +1,6 @@
 import User from '../src/User.js'
+import Traveler from './Traveler.js';
+import tripsData from '../test/data/trips.js';
 
 class TravelAgency extends User {
     constructor(travelersData, destinationData, tripsData, currentDate) {
@@ -21,8 +23,17 @@ class TravelAgency extends User {
     }
 
     
-    searchForUser() {
-
+    searchForUser(name) {
+        let userData = this.travelersData.find(traveler => traveler.name.includes(name))
+        let user = new Traveler(this.travelersData, this.destinationData, this.tripsData, userData)
+        let searchedUser = {
+            id: user.id,
+            name: user.name,
+            travelerType: user.travelerType,
+            trips: user.trips,
+            totalSpent: user.totalSpent
+        }
+        return searchedUser
     }
 
     approveTrip() {

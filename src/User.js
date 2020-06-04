@@ -34,8 +34,6 @@ class User {
         const expenditure = this.totalExpenditureWithoutProfit(tripData) 
         const margin = this.agencyMargin(tripData)
         const total = expenditure + margin
-
-        console.log(expenditure)
         return total
     }
 

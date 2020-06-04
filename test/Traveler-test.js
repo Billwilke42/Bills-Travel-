@@ -3,7 +3,6 @@ const expect = chai.expect;
 const spies = require("chai-spies");
 chai.use(spies);
 
-import TravelAgency from '../src/TravelAgency.js'
 import travelersData from './data/travelers.js'
 import destinationData from './data/destinations.js'
 import tripsData from './data/trips.js'
@@ -79,10 +78,14 @@ describe('Traveler', function() {
                 }
             ])
         })
-        
+
         it('should calculate all of its accumulated trips costs', function() {
             expect(traveler.accumulatedTotal(traveler.trips)).to.equal(7150)
         });
+
+        it('should have a property of its accumulated total spent with the agency', function() {
+            expect(traveler.totalSpent).to.equal(7150)
+        })
 
     })
 });

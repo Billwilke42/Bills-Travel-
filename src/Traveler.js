@@ -8,19 +8,13 @@ class Traveler extends User {
                 this.name = user.name;
                 this.travelerType = user.travelerType;
                 this.trips = this.getUserTrips();
-                // this.totalSpent = this.accumulatedTotal(this.trips)
+                this.totalSpent = this.accumulatedTotal(this.trips)
             }
     }
 
     getUserTrips() {
         const trips = this.tripsData.filter(trip => trip.userID === this.id)
         return trips
-    }
-
-    accumulatedTotal() {
-        const cost = this.totalExpenditureWithoutProfit(this.trips)
-        const margin = this.agencyMargin(this.trips)
-        return cost + margin
     }
 }
 

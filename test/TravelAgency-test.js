@@ -109,5 +109,26 @@ describe('Travel Agency', function() {
             expect(travelAgency.accumulatedTotal(tripsData)).to.equal(47657.5)
         })
 
+        it('should be able to search for a user', function() {
+            expect(travelAgency.searchForUser("Ham Leadbeater")).to.deep.equal({
+                id: 1,
+                name: 'Ham Leadbeater',
+                travelerType: 'relaxer',
+                trips: [
+                  {
+                    id: 8,
+                    userID: 1,
+                    destinationID: 8,
+                    travelers: 6,
+                    date: '2021/02/07',
+                    duration: 4,
+                    status: 'approved',
+                    suggestedActivities: []
+                  }
+                ],
+                totalSpent: 7150
+              })
+        })
+
     })
 })
