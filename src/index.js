@@ -7,7 +7,6 @@ import './css/base.scss';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 
-import DataRepository from './DataRepository';
 import DomUpdates from './domUpdates'
 
 let travelers;
@@ -47,7 +46,22 @@ Promise.all([travelers, destinations, trips])
   });
 
 //Functions
-function onStartup() {
 
+function onStartUp() {
+    let counter = 0;
+    // cycleImages(destinations, counter)
+}
+
+function cycleImages(destinations, counter) {
+    counter++
+    if(counter === destinations.length + 1) {
+        counter = 0
+    }
+    console.log(destinations[counter])
+    let mainArea = document.querySelector('.main')
+    mainArea.innerHTML = `<header class='welcome-message'><h2>Welcome to Travel Tracker</h2></header>
+    <section class='cycling-images'><img src="${destinations[counter].image}" alt="destination-image" class='cycling-images'>
+    <footer>Your Vacation Awaits!</footer></section>`
+    setTimeout(cycleImages, 3000, destinations, counter);
 }
 
