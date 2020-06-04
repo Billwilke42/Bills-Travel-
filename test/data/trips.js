@@ -71,7 +71,7 @@ let tripsData = [
     },
     {
     "id": 8,
-    "userID": 36,
+    "userID": 1,
     "destinationID": 8,
     "travelers": 6,
     "date": "2021/02/07",
@@ -98,6 +98,7 @@ let tripsData = [
     "duration": 17,
     "status": "approved",
     "suggestedActivities": []
-    }]
+    }
+]
 
     export default tripsData;

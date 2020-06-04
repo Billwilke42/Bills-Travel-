@@ -49,7 +49,7 @@ Promise.all([travelers, destinations, trips])
 
 function onStartUp() {
     let counter = 0;
-    // cycleImages(destinations, counter)
+    cycleImages(destinations, counter)
 }
 
 function cycleImages(destinations, counter) {

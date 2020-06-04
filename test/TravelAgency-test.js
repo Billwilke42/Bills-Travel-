@@ -7,11 +7,14 @@ import TravelAgency from '../src/TravelAgency.js'
 import travelersData from './data/travelers.js'
 import destinationData from './data/destinations.js'
 import tripsData from './data/trips.js'
+import User from '../src/User.js'
 
 let travelAgency;
+let user;
 
 describe('Travel Agency', function() {
     beforeEach(() => {
+        user = new User(travelersData, destinationData, tripsData)
         travelAgency = new TravelAgency()
     })
 
@@ -50,6 +53,7 @@ describe('Travel Agency', function() {
     describe('Travel Agency Methods', function() {
         beforeEach(() => {
             let currentDate = "2020/06/29"
+            user = new User(travelersData, destinationData, tripsData)
             travelAgency = new TravelAgency(travelersData, destinationData, tripsData, currentDate)
         })
         it('should be able to see all requested Trips', function() {
@@ -94,11 +98,36 @@ describe('Travel Agency', function() {
         })
 
         it('should get the total expenditure of all customers', function() {
-            expect(travelAgency.totalExpenditureWithoutProfit()).to.equal(434275)
+            expect(travelAgency.totalExpenditureWithoutProfit(tripsData)).to.equal(43325)
         })
 
         it('should be able to calculate total Income', function() {
-            expect(travelAgency.allIncome()).to.equal(43427.5)
+            expect(travelAgency.agencyMargin(tripsData)).to.equal(4332.5)
+        })
+
+        it('should be able to bring back the total people have spent at the agency' , function() {
+            expect(travelAgency.accumulatedTotal(tripsData)).to.equal(47657.5)
+        })
+
+        it('should be able to search for a user', function() {
+            expect(travelAgency.searchForUser("Ham Leadbeater")).to.deep.equal({
+                id: 1,
+                name: 'Ham Leadbeater',
+                travelerType: 'relaxer',
+                trips: [
+                  {
+                    id: 8,
+                    userID: 1,
+                    destinationID: 8,
+                    travelers: 6,
+                    date: '2021/02/07',
+                    duration: 4,
+                    status: 'approved',
+                    suggestedActivities: []
+                  }
+                ],
+                totalSpent: 7150
+              })
         })
 
     })
