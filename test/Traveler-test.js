@@ -87,5 +87,9 @@ describe('Traveler', function() {
             expect(traveler.totalSpent).to.equal(7150)
         })
 
+        it('should be able to get an estimated cost of a trip', function() {
+            expect(traveler.getEstimatedCost(4, 7, 3)).to.equal(4710)
+        })
+
     })
 });

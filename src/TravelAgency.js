@@ -1,6 +1,5 @@
 import User from '../src/User.js'
 import Traveler from './Traveler.js';
-import tripsData from '../test/data/trips.js';
 
 class TravelAgency extends User {
     constructor(travelersData, destinationData, tripsData, currentDate) {
