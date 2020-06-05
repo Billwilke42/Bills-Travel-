@@ -11,14 +11,13 @@ import domUpdates from './domUpdates'
 import User from './User';
 import TravelAgency from './TravelAgency'
 import Traveler from './Traveler'
+import moment from 'moment'
 
 let travelers;
 let destinations;
 let trips;
 let user;
 let date;
-let moment = require('moment');
-moment().format();
 
 //Fetching
 travelers = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/travelers/travelers')
@@ -45,7 +44,8 @@ Promise.all([travelers, destinations, trips])
     trips = data[2]
   })
   .then(() => {
-    date = moment()
+    date = moment().format('YYYY/MM/DD')
+    console.log(date)
     user = new User(travelers, destinations, trips)
     onStartUp(destinations)
   })
