@@ -7,12 +7,14 @@ import './css/base.scss';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 
-import DomUpdates from './domUpdates'
+// import DomUpdates from './domUpdates'
+import User from './User';
 
 let travelers;
 let destinations;
 let trips;
-const domUpdates = new DomUpdates()
+let user;
+// const domUpdates = new DomUpdates()
 
 //Fetching
 travelers = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/travelers/travelers')
@@ -39,17 +41,24 @@ Promise.all([travelers, destinations, trips])
     trips = data[2]
   })
   .then(() => {
+    user = new User(travelers, destinations, trips)
     onStartUp()
   })
   .catch(error => {
     console.log('Something is amiss with promise all', error)
   });
-
+  
+  //QuerySelectors
+  let logInButton = document.querySelector('.login-button')
+  const usernameInput = document.getElementById('username')
+  const passwordInput = document.getElementById('password')
+  
+//Event Listeners 
+logInButton.addEventListener('click', logIn)
 //Functions
-
 function onStartUp() {
     let counter = 0;
-    cycleImages(destinations, counter)
+    // cycleImages(destinations, counter)
 }
 
 function cycleImages(destinations, counter) {
@@ -63,5 +72,41 @@ function cycleImages(destinations, counter) {
     <section class='cycling-images'><img src="${destinations[counter].image}" alt="destination-image" class='cycling-images'>
     <footer>Your Vacation Awaits!</footer></section>`
     setTimeout(cycleImages, 3000, destinations, counter);
+}
+
+function logIn(event) {
+  debugger
+  const usernameArray = usernameInput.value.split('')
+  const usernameID = usernameArray.splice(8, 10).join('')
+  if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
+    displayAgencyDashboard()
+  } else if (usernameID <= 50 && passwordInput.value === 'travel2020') {
+    displayTravelerDashboard()
+  } else {
+    displayError()
+  }
+  event.preventDefault()
+}
+
+function displayAgencyDashboard() {
+  let mainArea = document.querySelector('.main')
+  mainArea.innerHTML = `<p>hey travel agent</p>`
+  usernameInput.value = ''
+  passwordInput.value = ''
+}
+
+function displayTravelerDashboard() {
+  let mainArea = document.querySelector('.main')
+  mainArea.innerHTML = `<p>hey traveler</p>`
+  usernameInput.value = ''
+  passwordInput.value = ''
+}
+
+function displayError() {
+  debugger
+  let form = document.getElementById('form1')
+  form.insertAdjacentHTML('afterend', `ERROR`)
+  usernameInput.value = ''
+  passwordInput.value = ''
 }
 
