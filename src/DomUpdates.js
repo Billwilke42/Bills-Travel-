@@ -1,3 +1,15 @@
+//imports
+import TravelAgency from './TravelAgency'
+import Traveler from './Traveler'
+// import travelers from './index'
+// import destinations from './index'
+// import trips from './index'
+
+//Globals
+let traveler;
+let travelAgency;
+
+//Query Selectors
 const usernameInput = document.getElementById('username')
 const passwordInput = document.getElementById('password')
 const mainArea = document.querySelector('.main')
@@ -9,13 +21,18 @@ const domUpdates = {
         const usernameArray = usernameInput.value.split('')
         const usernameID = usernameArray.splice(8, 10).join('')
         if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
-          domUpdates.displayAgencyDashboard()
+            // domUpdates.instantiateTravelAgency()
+            domUpdates.displayAgencyDashboard()
         } else if (usernameID <= 50 && passwordInput.value === 'travel2020') {
           domUpdates.displayTravelerDashboard()
         } else {
           domUpdates.displayError()
         }
         event.preventDefault()
+    },
+    
+    instantiateTravelAgency() {
+        let travelAgency = new TravelAgency(travelers, destinations, trips, date)
     },
 
     displayAgencyDashboard() {

@@ -16,6 +16,9 @@ let travelers;
 let destinations;
 let trips;
 let user;
+let date;
+let moment = require('moment');
+moment().format();
 
 //Fetching
 travelers = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/travelers/travelers')
@@ -42,6 +45,7 @@ Promise.all([travelers, destinations, trips])
     trips = data[2]
   })
   .then(() => {
+    date = moment()
     user = new User(travelers, destinations, trips)
     onStartUp(destinations)
   })
@@ -64,4 +68,6 @@ function onStartUp(destinations) {
     // domUpdates.cycleImages(destinations, counter)
 }
 
-
+function instantiateTravelAgency() {
+  let travelAgency = new TravelAgency(travelers, destinations, trips, date)
+}
