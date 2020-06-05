@@ -1,5 +1,6 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: #F2987D;
+@import 'variables';
+@import 'mixins';
 
 
 body {
@@ -18,6 +19,7 @@ body {
   // border: solid black;
   // margin: 10px;
   height: 100vh;
+  border: 1px solid black;
 }
 
 h1 {
@@ -32,8 +34,10 @@ h1 {
 .main {
   width: 85vw;
   height: 100vh;
-  background-color: #C1DBDA
-
+  background-color: #C1DBDA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 }
 
@@ -42,15 +46,51 @@ h1 {
 }
 
 .log-in {
-  background-color: cornsilk;
+  background-color: $light-blue;
   margin: auto;
   height: 25%;
-  width: 80%;
+  width: 75%;
+  @include rounded-corners(25px);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  border: 1px solid black;
 }
 
 .cycling-images {
   height: 80%;
   width: 85%;
 }
+.traveler-dashboard,
+.agency-dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  height: 98%;
+  width: 98%;
+  background-color: $primary-background;
+  @include rounded-corners(25px);
+  border: 1px solid black;
+}
+
+.all-trips,
+.amount-spent,
+.trip-request,
+.pending-trips,
+.requested-trips,
+.travelers-on-trips,
+.search-for-user,
+.income {
+  width: 48.5%;
+  height: 48.5%;
+  background-color: $light-blue;
+  @include rounded-corners(25px);
+  border: 1px solid black;
+}
 
 
+.hide {
+  display: none;
+}

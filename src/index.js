@@ -7,12 +7,18 @@ import './css/base.scss';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 
-import DomUpdates from './domUpdates'
+import domUpdates from './domUpdates'
+import User from './User';
+import TravelAgency from './TravelAgency'
+import Traveler from './Traveler'
 
 let travelers;
 let destinations;
 let trips;
-const domUpdates = new DomUpdates()
+let user;
+let date;
+let moment = require('moment');
+moment().format();
 
 //Fetching
 travelers = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/travelers/travelers')
@@ -39,29 +45,29 @@ Promise.all([travelers, destinations, trips])
     trips = data[2]
   })
   .then(() => {
-    onStartUp()
+    date = moment()
+    user = new User(travelers, destinations, trips)
+    onStartUp(destinations)
   })
   .catch(error => {
     console.log('Something is amiss with promise all', error)
   });
+  
+  //QuerySelectors
+  let logInButton = document.querySelector('.login-button')
+  const usernameInput = document.getElementById('username')
+  const passwordInput = document.getElementById('password')
+  const mainArea = document.querySelector('.main')
+  
+//Event Listeners 
+logInButton.addEventListener('click', domUpdates.logIn)
 
 //Functions
-
-function onStartUp() {
+function onStartUp(destinations) {
     let counter = 0;
-    cycleImages(destinations, counter)
+    // domUpdates.cycleImages(destinations, counter)
 }
 
-function cycleImages(destinations, counter) {
-    counter++
-    if(counter === destinations.length + 1) {
-        counter = 0
-    }
-    console.log(destinations[counter])
-    let mainArea = document.querySelector('.main')
-    mainArea.innerHTML = `<header class='welcome-message'><h2>Welcome to Travel Tracker</h2></header>
-    <section class='cycling-images'><img src="${destinations[counter].image}" alt="destination-image" class='cycling-images'>
-    <footer>Your Vacation Awaits!</footer></section>`
-    setTimeout(cycleImages, 3000, destinations, counter);
+function instantiateTravelAgency() {
+  let travelAgency = new TravelAgency(travelers, destinations, trips, date)
 }
-
