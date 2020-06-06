@@ -34,11 +34,12 @@ h1 {
 .main {
   width: 85vw;
   height: 100vh;
-  background-color: $comp-white;
+  background-color: $yellow;
   display: flex;
   align-items: center;
   justify-content: center;
-
+  text-align: center;
+  flex-wrap: wrap;
 }
 
 #blockColorblindContent {
@@ -59,7 +60,16 @@ h1 {
 }
 
 .cycling-images {
-  height: 80%;
+  height: 85%;
+  width: 85%;
+  padding-top: 15px;
+  background-color: $primary-background;
+  @include rounded-corners(25px);
+  border: 1px solid black;
+}
+
+.cycling-image {
+  height: 85%;
   width: 85%;
 }
 

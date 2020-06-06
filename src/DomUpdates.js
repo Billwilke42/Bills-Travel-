@@ -93,18 +93,13 @@ class DomUpdates {
         usernameInput.value = ''
         passwordInput.value = ''
     }
-
-    // cycleImages(destinations, counter, mainArea) {
-    //      debugger
-    //     counter++
-    //     if(counter === destinations.length + 1) {
-    //         counter = 0
-    //     }
-    //     mainArea.innerHTML = `<header class='welcome-message'><h2>Welcome to Travel Tracker</h2></header>
-    //     <section class='cycling-images'><img src="${destinations[counter].image}" alt="destination-image" class='cycling-images'>
-    //     <footer>Your Vacation Awaits!</footer></section>`
-    //     setInterval(this.cycleImages, 2000, destinations, counter, mainArea);
-    // }
+    cycleImages(destinations) {
+        let num = Math.random() * (50 - 0)
+        let index = Math.round(num)
+         this.mainArea.innerHTML = `<header class='welcome-message'><h2>Welcome to Travel Tracker</h2><h3>Your Vacation Awaits!</h3></header>
+         <section class='cycling-images'><img src="${destinations[index].image}" alt="${destinations[index].image.alt}" class='cycling-images'>
+         <p class='main-menu-travel-deal'>Flights to ${destinations[index].destination} for $${destinations[index].estimatedFlightCostPerPerson}.00 with lodging starting at $${destinations[index].estimatedLodgingCostPerDay}.00</p></section>`
+    }
 }
 
 

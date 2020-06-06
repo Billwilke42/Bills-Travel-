@@ -67,8 +67,7 @@ logInButton.addEventListener('click', logIn)
 
 //Functions
 function onStartUp(domUpdates, destinations) {
-    let counter = 0;
-    // cycle = cycleImages(destinations, counter)
+    domUpdates.cycleImages(destinations)
 }
 
 function logIn() {
@@ -98,14 +97,10 @@ function instantiateTravelAgency() {
   domUpdates.displayAgencyDashboard(travelAgency)
 }
 
-function cycleImages(destinations, counter) {
-  // debugger
- counter++
- if(counter === destinations.length + 1) {
-     counter = 0
- }
- mainArea.innerHTML = `<header class='welcome-message'><h2>Welcome to Travel Tracker</h2></header>
- <section class='cycling-images'><img src="${destinations[counter].image}" alt="destination-image" class='cycling-images'>
- <footer>Your Vacation Awaits!</footer></section>`
- cycle = setInterval(cycleImages, 2000, destinations, counter, cycle);
-}
+// function cycleImages(destinations) {
+// let num = Math.random() * (50 - 0)
+// let index = Math.round(num)
+//  mainArea.innerHTML = `<header class='welcome-message'><h2>Welcome to Travel Tracker</h2></header>
+//  <section class='cycling-images'><img src="${destinations[index].image}" alt="${destinations[index].image.alt}" class='cycling-images'>
+//  <footer>Your Vacation Awaits!</footer></section>`
+// }
