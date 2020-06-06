@@ -17,8 +17,28 @@ class Traveler extends User {
         return trips
     }
 
-    makeTripRequest() {
-
+    makeTripRequest(num, date, numDays, destination) {
+        fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/trips', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                'id': trip.id, 
+                'userID': this.id, 
+                'destinationID': destination.id, 
+                'travelers': num, 
+                'date': date, 
+                'duration': numDays, 
+                'status': 'pending', 
+                'suggestedActivities': destination.suggestedActivities
+            })
+        })
+            .then(response => response.json())
+            .then((data) => {
+            console.log('Success:', data) 
+            })
+            .catch(err => console.log(err.message));
     }
 
     getEstimatedCost(numTravelers, duration, destinationId) {

@@ -34,11 +34,12 @@ h1 {
 .main {
   width: 85vw;
   height: 100vh;
-  background-color: #C1DBDA;
+  background-color: $yellow;
   display: flex;
   align-items: center;
   justify-content: center;
-
+  text-align: center;
+  flex-wrap: wrap;
 }
 
 #blockColorblindContent {
@@ -46,7 +47,7 @@ h1 {
 }
 
 .log-in {
-  background-color: $light-blue;
+  background-color: $yellow;
   margin: auto;
   height: 25%;
   width: 75%;
@@ -59,9 +60,19 @@ h1 {
 }
 
 .cycling-images {
-  height: 80%;
+  height: 55%;
+  width: 55%;
+  padding: 15px;
+  background-color: $primary-background;
+  @include rounded-corners(25px);
+  border: 1px solid black;
+}
+
+.cycling-image {
+  height: 85%;
   width: 85%;
 }
+
 .traveler-dashboard,
 .agency-dashboard {
   display: flex;
@@ -70,7 +81,7 @@ h1 {
   align-items: center;
   height: 98%;
   width: 98%;
-  background-color: $primary-background;
+  background-color: $complement-yellow;
   @include rounded-corners(25px);
   border: 1px solid black;
 }
@@ -85,7 +96,7 @@ h1 {
 .income {
   width: 48.5%;
   height: 48.5%;
-  background-color: $light-blue;
+  background-color: $comp-white;
   @include rounded-corners(25px);
   border: 1px solid black;
 }

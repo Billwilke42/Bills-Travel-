@@ -53,15 +53,15 @@ describe('User', function() {
         })
 
         it('should get the total expenditure of all customers', function() {
-            expect(user.totalExpenditureWithoutProfit(tripsData)).to.equal(43325)
+            expect(user.totalExpenditureWithoutProfitForYear(tripsData)).to.equal(35715)
         })
 
         it('should be able to calculate total Income', function() {
-            expect(user.agencyMargin(tripsData)).to.equal(4332.5)
+            expect(user.agencyMargin(tripsData)).to.equal(3571.5)
         })
 
         it('should be able to bring back the total people have spent at the agency' , function() {
-            expect(user.accumulatedTotal(tripsData)).to.equal(47657.5)
+            expect(user.accumulatedTotal(tripsData)).to.equal(39286.5)
         })
     })
 })

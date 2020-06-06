@@ -48,8 +48,8 @@ Promise.all([travelers, destinations, trips])
     trips = data[2]
   })
   .then(() => {
-    domUpdates = new DomUpdates()
     date = moment().format('YYYY/MM/DD')
+    domUpdates = new DomUpdates(date)
     onStartUp(domUpdates, destinations)
   })
   .catch(error => {
@@ -67,20 +67,18 @@ logInButton.addEventListener('click', logIn)
 
 //Functions
 function onStartUp(domUpdates, destinations) {
-    let counter = 0;
-    // cycle = cycleImages(destinations, counter)
+    domUpdates.cycleImages(destinations)
 }
 
 function logIn() {
-  debugger
   const usernameArray = usernameInput.value.split('')
   const usernameID = parseInt(usernameArray.splice(8, 10).join('')) - 1
   if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
-    // clearTimeout(cycle)
+   
     instantiateTravelAgency()
-    // domUpdates.displayAgencyDashboard(travelAgency)
+   
   } else if (usernameID <= 50 && passwordInput.value === 'travel2020') {
-    // clearTimeout(cycle)
+   
     instantiateTraveler(usernameID)
   } else {
     domUpdates.displayError()
@@ -98,14 +96,3 @@ function instantiateTravelAgency() {
   domUpdates.displayAgencyDashboard(travelAgency)
 }
 
-function cycleImages(destinations, counter) {
-  // debugger
- counter++
- if(counter === destinations.length + 1) {
-     counter = 0
- }
- mainArea.innerHTML = `<header class='welcome-message'><h2>Welcome to Travel Tracker</h2></header>
- <section class='cycling-images'><img src="${destinations[counter].image}" alt="destination-image" class='cycling-images'>
- <footer>Your Vacation Awaits!</footer></section>`
- cycle = setInterval(cycleImages, 2000, destinations, counter, cycle);
-}

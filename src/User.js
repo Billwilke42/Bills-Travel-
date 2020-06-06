@@ -1,16 +1,17 @@
 class User {
-    constructor(travelersData, destinationData, tripsData) {
+    constructor(travelersData, destinationData, tripsData, date) {
         this.travelersData = travelersData;
         this.destinationData = destinationData;
         this.tripsData = tripsData;
+        this.currentDate = date
     }
 
-    totalExpenditureWithoutProfit(tripData) {
+    totalExpenditureWithoutProfitForYear(tripData) {
         if(tripData instanceof Array) {
         let costFlights, costLodging;
         let totalSpent = tripData.reduce((total, trip) => {
             this.destinationData.forEach(destination => {
-                if(trip.destinationID === destination.id) {
+                if(trip.destinationID === destination.id && Number(trip.date.split('/')[0]) > 2019) {
                     costFlights = destination.estimatedFlightCostPerPerson * trip.travelers
                     costLodging = destination.estimatedLodgingCostPerDay * trip.duration
                 } else {
@@ -25,13 +26,13 @@ class User {
 }
 
     agencyMargin(tripData) {
-        const expenditure = this.totalExpenditureWithoutProfit(tripData)
+        const expenditure = this.totalExpenditureWithoutProfitForYear(tripData)
         const margin = expenditure * .10
         return margin
     }
 
     accumulatedTotal(tripData) {
-        const expenditure = this.totalExpenditureWithoutProfit(tripData) 
+        const expenditure = this.totalExpenditureWithoutProfitForYear(tripData) 
         const margin = this.agencyMargin(tripData)
         const total = expenditure + margin
         return total
