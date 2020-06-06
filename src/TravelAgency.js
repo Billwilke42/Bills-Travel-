@@ -1,5 +1,6 @@
 import User from '../src/User.js'
 import Traveler from './Traveler.js';
+import moment from 'moment'
 
 class TravelAgency extends User {
     constructor(travelersData, destinationData, tripsData, currentDate) {
@@ -17,11 +18,17 @@ class TravelAgency extends User {
     }
 
     travelersThatAreOnTrips(currentDate) {
-        let travelersOnTrips = this.tripsData.filter(trip => trip.date === currentDate)
+        let travelersOnTrips = this.tripsData.reduce((currentTrips, trip) => {
+            let startDate = moment(trip.date)
+            let endDate = startDate.clone().add('days', trip.duration).format('YYYY/MM/DD')
+            if(trip.date <= currentDate && endDate > currentDate) {
+                currentTrips.push(trip)
+            }
+            return currentTrips
+        }, [])
         return travelersOnTrips
     }
 
-    
     searchForUser(id) {
         // let userData = this.travelersData.find(traveler => traveler.name.includes(name))
         // let user = new Traveler(this.travelersData, this.destinationData, this.tripsData, userData)

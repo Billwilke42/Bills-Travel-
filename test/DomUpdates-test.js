@@ -41,7 +41,7 @@ describe('DomUpdates', () => {
   // updateDom to see that its been called without having to mock out document.querySelector
 
 
-  it.only('should envoke agencyDashboard and clearInputs when displayAgencyDashboard is called', function() {
+  it('should envoke agencyDashboard and clearInputs when displayAgencyDashboard is called', function() {
     let domUpdates = new DomUpdates()
     let spy = chai.spy.on(domUpdates, 'agencyDashboard', () => {})
     let spy2 = chai.spy.on(domUpdates, 'clearInputs', () => {})
@@ -50,7 +50,7 @@ describe('DomUpdates', () => {
     expect(spy2).to.have.been.called(1)
   })
 
-  it.only('should envoke travelerDashboard and clearInputs when displayAgencyDashboard is called', function() {
+  it('should envoke travelerDashboard and clearInputs when displayAgencyDashboard is called', function() {
     let domUpdates = new DomUpdates()
     let spy = chai.spy.on(domUpdates, 'travelerDashboard', () => {})
     let spy2 = chai.spy.on(domUpdates, 'clearInputs', () => {})
