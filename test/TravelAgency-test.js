@@ -2,6 +2,8 @@ const chai = require('chai');
 const expect = chai.expect;
 const spies = require("chai-spies");
 chai.use(spies);
+// const chaiFetch = require('chai-fetch');
+// chai.use(chaiFetch);
 
 import TravelAgency from '../src/TravelAgency.js'
 import travelersData from './data/travelers.js'
@@ -98,7 +100,7 @@ describe('Travel Agency', function() {
         })
 
         it('should get the total expenditure of all customers for the past year', function() {
-            expect(travelAgency.totalExpenditureWithoutProfit(tripsData)).to.equal(35715)
+            expect(travelAgency.totalExpenditureWithoutProfitForYear(tripsData)).to.equal(35715)
         })
 
         it('should be able to calculate total Income for the past year', function() {
@@ -109,26 +111,42 @@ describe('Travel Agency', function() {
             expect(travelAgency.accumulatedTotal(tripsData)).to.equal(39286.5)
         })
 
+    // })
+  
+    // describe('Chai-fetch', () => {
+    //     beforeEach(() => mockServer.start(8080));
+    //     afterEach(() => mockServer.stop());
+    
+    //     describe('.responseText', () => {
+    //         it('should match responses with matching bodies', () => {
+    //             mockServer.get('/match').thenReply(200, 'matching body')
+    //             .then(() =>
+    //                 expect(fetch('http://localhost:8080/match')).to.have.responseText('matching body')
+    //             );
+    //         });
+    //     });
         it('should be able to search for a user', function() {
+            // global.fetch = require("node-fetch");
             expect(travelAgency.searchForUser("Ham Leadbeater")).to.deep.equal({
                 id: 1,
                 name: 'Ham Leadbeater',
                 travelerType: 'relaxer',
                 trips: [
-                  {
-                    id: 8,
-                    userID: 1,
-                    destinationID: 8,
-                    travelers: 6,
-                    date: '2021/02/07',
-                    duration: 4,
-                    status: 'approved',
-                    suggestedActivities: []
-                  }
+                    {
+                        id: 8,
+                        userID: 1,
+                        destinationID: 8,
+                        travelers: 6,
+                        date: '2021/02/07',
+                        duration: 4,
+                        status: 'approved',
+                        suggestedActivities: []
+                    }
                 ],
                 totalSpent: 7150
-              })
+            
+            
+            })
         })
-
-    })
+    });
 })

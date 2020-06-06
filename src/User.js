@@ -6,7 +6,7 @@ class User {
         this.currentDate = date
     }
 
-    totalExpenditureWithoutProfit(tripData) {
+    totalExpenditureWithoutProfitForYear(tripData) {
         if(tripData instanceof Array) {
         let costFlights, costLodging;
         let totalSpent = tripData.reduce((total, trip) => {
@@ -26,13 +26,13 @@ class User {
 }
 
     agencyMargin(tripData) {
-        const expenditure = this.totalExpenditureWithoutProfit(tripData)
+        const expenditure = this.totalExpenditureWithoutProfitForYear(tripData)
         const margin = expenditure * .10
         return margin
     }
 
     accumulatedTotal(tripData) {
-        const expenditure = this.totalExpenditureWithoutProfit(tripData) 
+        const expenditure = this.totalExpenditureWithoutProfitForYear(tripData) 
         const margin = this.agencyMargin(tripData)
         const total = expenditure + margin
         return total

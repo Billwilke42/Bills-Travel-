@@ -75,11 +75,11 @@ function logIn() {
   const usernameArray = usernameInput.value.split('')
   const usernameID = parseInt(usernameArray.splice(8, 10).join('')) - 1
   if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
-    // clearTimeout(cycle)
+   
     instantiateTravelAgency()
-    // domUpdates.displayAgencyDashboard(travelAgency)
+   
   } else if (usernameID <= 50 && passwordInput.value === 'travel2020') {
-    // clearTimeout(cycle)
+   
     instantiateTraveler(usernameID)
   } else {
     domUpdates.displayError()
@@ -97,10 +97,3 @@ function instantiateTravelAgency() {
   domUpdates.displayAgencyDashboard(travelAgency)
 }
 
-// function cycleImages(destinations) {
-// let num = Math.random() * (50 - 0)
-// let index = Math.round(num)
-//  mainArea.innerHTML = `<header class='welcome-message'><h2>Welcome to Travel Tracker</h2></header>
-//  <section class='cycling-images'><img src="${destinations[index].image}" alt="${destinations[index].image.alt}" class='cycling-images'>
-//  <footer>Your Vacation Awaits!</footer></section>`
-// }

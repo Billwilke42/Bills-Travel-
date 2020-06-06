@@ -53,7 +53,7 @@ describe('User', function() {
         })
 
         it('should get the total expenditure of all customers', function() {
-            expect(user.totalExpenditureWithoutProfit(tripsData)).to.equal(35715)
+            expect(user.totalExpenditureWithoutProfitForYear(tripsData)).to.equal(35715)
         })
 
         it('should be able to calculate total Income', function() {
