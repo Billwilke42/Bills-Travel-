@@ -71,7 +71,6 @@ function onStartUp(domUpdates, destinations) {
 }
 
 function logIn() {
-  debugger
   const usernameArray = usernameInput.value.split('')
   const usernameID = parseInt(usernameArray.splice(8, 10).join('')) - 1
   if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
