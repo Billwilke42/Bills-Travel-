@@ -32,6 +32,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "moment": "^2.26.0"
+    "moment": "^2.26.0",
+    "spies": "^0.1.6"
   }
 }

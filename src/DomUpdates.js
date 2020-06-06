@@ -1,137 +1,111 @@
-//imports
-import TravelAgency from './TravelAgency'
-import Traveler from './Traveler'
-// import travelers from './index'
-// import destinations from './index'
-// import trips from './index'
-
-//Globals
-let traveler;
-let travelAgency;
-
-//Query Selectors
-const usernameInput = document.getElementById('username')
-const passwordInput = document.getElementById('password')
-const mainArea = document.querySelector('.main')
-
-const domUpdates = {
-
-    logIn() {
-        debugger
-        const usernameArray = usernameInput.value.split('')
-        const usernameID = usernameArray.splice(8, 10).join('')
-        if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
-            // domUpdates.instantiateTravelAgency()
-            domUpdates.displayAgencyDashboard()
-        } else if (usernameID <= 50 && passwordInput.value === 'travel2020') {
-          domUpdates.displayTravelerDashboard()
-        } else {
-          domUpdates.displayError()
-        }
-        event.preventDefault()
-    },
+class DomUpdates {
+    constructor() {
+        this.mainArea = document.querySelector('.main')
+        this.usernameInput = document.getElementById('username')
+        this.passwordInput = document.getElementById('password')
+        this.cycle = null;
+    }
+    displayAgencyDashboard(travelAgency) {
+        // clearTimeout(cycle)
+        this.agencyDashboard(travelAgency)
+        this.usernameInput.value = ''
+        this.passwordInput.value = ''
+    }
     
-    instantiateTravelAgency() {
-        let travelAgency = new TravelAgency(travelers, destinations, trips, date)
-    },
-
-    displayAgencyDashboard() {
-        domUpdates.agencyDashboard()
-        usernameInput.value = ''
-        passwordInput.value = ''
-    },
-
-    agencyDashboard() {
-        mainArea.innerHTML = `<article class='agency-dashboard'>
+    agencyDashboard(travelAgency) {
+        this.mainArea.innerHTML = `<article class='agency-dashboard'>
         <section class='requested-trips'></section>
         <section class='travelers-on-trips'></section>
         <section class='search-for-user'></section>
         <section class='income'></section>
         </article>`
-        domUpdates.requestedTrips()
-        domUpdates.travelersOnTrips()
-        domUpdates.searchForUser()
-        domUpdates.income()
-    },
+        this.requestedTrips()
+        this.travelersOnTrips(travelAgency)
+        this.searchForUser()
+        this.income()
+    }
 
-    displayTravelerDashboard() {
-        domUpdates.travelerDashboard()
-        usernameInput.value = ''
-        passwordInput.value = ''
-    },
+    displayTravelerDashboard(traveler) {
+        // clearTimeout(cycle)
+        this.travelerDashboard()
+        this.usernameInput.value = ''
+        this.passwordInput.value = ''
+    }
 
-    requestedTrips() {
+    requestedTrips(travelAgency) {
         let tripsRequestedForm = document.querySelector('.requested-trips')
         tripsRequestedForm.innerHTML = `<h1>Trips Requested:</h1>`
-    },
+    }
 
-    travelersOnTrips() {
+    travelersOnTrips(travelAgency) {
         let travelersOnTripsForm = document.querySelector('.travelers-on-trips')
-        travelersOnTripsForm.innerHTML = `<h1>Travelers on trips:</h1>`
-    },
+        travelersOnTripsForm.innerHTML = `<h1>Travelers on trips:</h1>
+        <p>${travelAgency.travelersThatAreOnTrips().length}</p>`
+    }
 
-    searchForUser() {
+    searchForUser(travelAgency) {
         let searchForUserForm = document.querySelector('.search-for-user')
         searchForUserForm.innerHTML = `<h1>Search for Traveler:</h1>`
-    },
+    }
 
-    income() {
+    income(travelAgency) {
         let incomeForm = document.querySelector('.income')
         incomeForm.innerHTML = `<h1>Total Income:</h1>`
-    },
+    }
 
-    travelerDashboard() {
-        mainArea.innerHTML = `<article class='traveler-dashboard'>
+    travelerDashboard(traveler) {
+        this.mainArea.innerHTML = `<article class='traveler-dashboard'>
         <section class='all-trips'></section>
         <section class='amount-spent'></section>
         <section class='trip-request'></section>
         <section class='pending-trips'></section>
         </article>`
-        domUpdates.allTrips()
-        domUpdates.amountSpent()
-        domUpdates.requestTrip()
-        domUpdates.pendingTrips()
-    },
+        this.allTrips(traveler)
+        this.amountSpent(traveler)
+        this.requestTrip(traveler)
+        this.pendingTrips(traveler)
+    }
 
-    allTrips() {
+    allTrips(traveler) {
         let allTripsForm = document.querySelector('.all-trips')
         allTripsForm.innerHTML = `<h1>All Trips:</h1>`
-    },
+    }
 
-    amountSpent() {
+    amountSpent(traveler) {
         let amountSpentForm = document.querySelector('.amount-spent')
         amountSpentForm.innerHTML = `<h1>Amount Spent:</h1>`
-    },
+    }
 
-    requestTrip() {
+    requestTrip(traveler) {
         let requestTripForm = document.querySelector('.trip-request')
         requestTripForm.innerHTML = `<h1>Request a Trip:</h1>`
-    },
+    }
 
-    pendingTrips() {
+    pendingTrips(traveler) {
         let pendingTripsForm = document.querySelector('.pending-trips')
         pendingTripsForm.innerHTML = `<h1>Pending Trips:`
-    },
+    }
 
-    displayError() {
+    displayError(traveler) {
         debugger
         let form = document.getElementById('form1')
         form.insertAdjacentHTML('afterend', `ERROR`)
         usernameInput.value = ''
         passwordInput.value = ''
-    },
+    }
 
-    cycleImages(destinations, counter) {
-        counter++
-        if(counter === destinations.length + 1) {
-            counter = 0
-        }
-        mainArea.innerHTML = `<header class='welcome-message'><h2>Welcome to Travel Tracker</h2></header>
-        <section class='cycling-images'><img src="${destinations[counter].image}" alt="destination-image" class='cycling-images'>
-        <footer>Your Vacation Awaits!</footer></section>`
-        setTimeout(domUpdates.cycleImages, 3000, destinations, counter);
-      }
-
+    // cycleImages(destinations, counter, mainArea) {
+    //      debugger
+    //     counter++
+    //     if(counter === destinations.length + 1) {
+    //         counter = 0
+    //     }
+    //     mainArea.innerHTML = `<header class='welcome-message'><h2>Welcome to Travel Tracker</h2></header>
+    //     <section class='cycling-images'><img src="${destinations[counter].image}" alt="destination-image" class='cycling-images'>
+    //     <footer>Your Vacation Awaits!</footer></section>`
+    //     setInterval(this.cycleImages, 2000, destinations, counter, mainArea);
+    // }
 }
 
-export default domUpdates;
+
+export default DomUpdates;

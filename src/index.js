@@ -7,18 +7,21 @@ import './css/base.scss';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 
-import domUpdates from './domUpdates'
+import DomUpdates from './DomUpdates'
 import User from './User';
 import TravelAgency from './TravelAgency'
 import Traveler from './Traveler'
+import moment from 'moment'
 
+let cycle
 let travelers;
 let destinations;
 let trips;
 let user;
 let date;
-let moment = require('moment');
-moment().format();
+let domUpdates;
+let traveler;
+let travelAgency;
 
 //Fetching
 travelers = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/travelers/travelers')
@@ -33,7 +36,7 @@ destinations = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/d
 
 trips = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/trips')
   .then(data => data.json())
-  .then(data => data.recipeData)
+  .then(data => data.trips)
   .catch(err => console.log(err.message))
 
 
@@ -45,9 +48,9 @@ Promise.all([travelers, destinations, trips])
     trips = data[2]
   })
   .then(() => {
-    date = moment()
-    user = new User(travelers, destinations, trips)
-    onStartUp(destinations)
+    domUpdates = new DomUpdates()
+    date = moment().format('YYYY/MM/DD')
+    onStartUp(domUpdates, destinations)
   })
   .catch(error => {
     console.log('Something is amiss with promise all', error)
@@ -60,14 +63,49 @@ Promise.all([travelers, destinations, trips])
   const mainArea = document.querySelector('.main')
   
 //Event Listeners 
-logInButton.addEventListener('click', domUpdates.logIn)
+logInButton.addEventListener('click', logIn)
 
 //Functions
-function onStartUp(destinations) {
+function onStartUp(domUpdates, destinations) {
     let counter = 0;
-    // domUpdates.cycleImages(destinations, counter)
+    // cycle = cycleImages(destinations, counter)
+}
+
+function logIn() {
+  debugger
+  const usernameArray = usernameInput.value.split('')
+  const usernameID = parseInt(usernameArray.splice(8, 10).join('')) - 1
+  if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
+    // clearTimeout(cycle)
+    instantiateTravelAgency()
+    // domUpdates.displayAgencyDashboard(travelAgency)
+  } else if (usernameID <= 50 && passwordInput.value === 'travel2020') {
+    // clearTimeout(cycle)
+    instantiateTraveler(usernameID)
+  } else {
+    domUpdates.displayError()
+  }
+  event.preventDefault()
+}
+
+function instantiateTraveler(usernameID) {
+  traveler = new Traveler(travelers, destinations, trips, travelers[usernameID])
+  domUpdates.displayTravelerDashboard(traveler)
 }
 
 function instantiateTravelAgency() {
-  let travelAgency = new TravelAgency(travelers, destinations, trips, date)
+  travelAgency = new TravelAgency(travelers, destinations, trips, date)
+  domUpdates.displayAgencyDashboard(travelAgency)
+}
+
+function cycleImages(destinations, counter) {
+  // debugger
+ counter++
+ if(counter === destinations.length + 1) {
+     counter = 0
+ }
+ mainArea.innerHTML = `<header class='welcome-message'><h2>Welcome to Travel Tracker</h2></header>
+ <section class='cycling-images'><img src="${destinations[counter].image}" alt="destination-image" class='cycling-images'>
+ <footer>Your Vacation Awaits!</footer></section>`
+ cycle = setInterval(cycleImages, 2000, destinations, counter, cycle);
 }
