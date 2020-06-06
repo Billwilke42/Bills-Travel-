@@ -1,8 +1,9 @@
 class User {
-    constructor(travelersData, destinationData, tripsData) {
+    constructor(travelersData, destinationData, tripsData, date) {
         this.travelersData = travelersData;
         this.destinationData = destinationData;
         this.tripsData = tripsData;
+        this.currentDate = date
     }
 
     totalExpenditureWithoutProfit(tripData) {
@@ -10,7 +11,7 @@ class User {
         let costFlights, costLodging;
         let totalSpent = tripData.reduce((total, trip) => {
             this.destinationData.forEach(destination => {
-                if(trip.destinationID === destination.id) {
+                if(trip.destinationID === destination.id && Number(trip.date.split('/')[0]) > 2019) {
                     costFlights = destination.estimatedFlightCostPerPerson * trip.travelers
                     costLodging = destination.estimatedLodgingCostPerDay * trip.duration
                 } else {

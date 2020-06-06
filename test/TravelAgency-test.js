@@ -97,16 +97,16 @@ describe('Travel Agency', function() {
             ])
         })
 
-        it('should get the total expenditure of all customers', function() {
-            expect(travelAgency.totalExpenditureWithoutProfit(tripsData)).to.equal(43325)
+        it('should get the total expenditure of all customers for the past year', function() {
+            expect(travelAgency.totalExpenditureWithoutProfit(tripsData)).to.equal(35715)
         })
 
-        it('should be able to calculate total Income', function() {
-            expect(travelAgency.agencyMargin(tripsData)).to.equal(4332.5)
+        it('should be able to calculate total Income for the past year', function() {
+            expect(travelAgency.agencyMargin(tripsData)).to.equal(3571.5)
         })
 
-        it('should be able to bring back the total people have spent at the agency' , function() {
-            expect(travelAgency.accumulatedTotal(tripsData)).to.equal(47657.5)
+        it('should be able to bring back the total people have spent at the agency for the past year' , function() {
+            expect(travelAgency.accumulatedTotal(tripsData)).to.equal(39286.5)
         })
 
         it('should be able to search for a user', function() {
