@@ -7,17 +7,21 @@ import './css/base.scss';
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
 
-import domUpdates from './domUpdates'
+import DomUpdates from './DomUpdates'
 import User from './User';
 import TravelAgency from './TravelAgency'
 import Traveler from './Traveler'
 import moment from 'moment'
 
+let cycle;
 let travelers;
 let destinations;
 let trips;
 let user;
 let date;
+let domUpdates;
+let traveler;
+let travelAgency;
 
 //Fetching
 travelers = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/travelers/travelers')
@@ -32,7 +36,7 @@ destinations = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/d
 
 trips = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/trips')
   .then(data => data.json())
-  .then(data => data.recipeData)
+  .then(data => data.trips)
   .catch(err => console.log(err.message))
 
 
@@ -44,10 +48,9 @@ Promise.all([travelers, destinations, trips])
     trips = data[2]
   })
   .then(() => {
+    domUpdates = new DomUpdates()
     date = moment().format('YYYY/MM/DD')
-    console.log(date)
-    user = new User(travelers, destinations, trips)
-    onStartUp(destinations)
+    onStartUp(domUpdates, destinations)
   })
   .catch(error => {
     console.log('Something is amiss with promise all', error)
@@ -60,14 +63,36 @@ Promise.all([travelers, destinations, trips])
   const mainArea = document.querySelector('.main')
   
 //Event Listeners 
-logInButton.addEventListener('click', domUpdates.logIn)
+logInButton.addEventListener('click', logIn, true, cycle)
 
 //Functions
-function onStartUp(destinations) {
+function onStartUp(domUpdates, destinations) {
     let counter = 0;
-    // domUpdates.cycleImages(destinations, counter)
+    domUpdates.cycleImages(destinations, counter, mainArea)
+}
+
+function logIn() {
+  debugger
+  const usernameArray = usernameInput.value.split('')
+  const usernameID = parseInt(usernameArray.splice(8, 10).join('')) - 1
+  
+  if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
+    instantiateTravelAgency()
+    domUpdates.displayAgencyDashboard(travelers, destinations, trips, date)
+  } else if (usernameID <= 50 && passwordInput.value === 'travel2020') {
+    // instantiateTraveler(usernameID)
+    domUpdates.displayTravelerDashboard()
+  } else {
+    domUpdates.displayError()
+  }
+  event.preventDefault()
+}
+
+function instantiateTraveler(usernameID) {
+  const traveler = new Traveler(travelers, destinations, trips, travelers[usernameID])
 }
 
 function instantiateTravelAgency() {
-  let travelAgency = new TravelAgency(travelers, destinations, trips, date)
+  const travelAgency = new TravelAgency(travelers, destinations, trips, date)
 }
+
