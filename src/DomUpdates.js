@@ -1,5 +1,6 @@
 class DomUpdates {
-    constructor() {
+    constructor(date) {
+        this.date = date
     }
 
     displayAgencyDashboard(travelAgency) {
@@ -38,7 +39,7 @@ class DomUpdates {
 
     travelersOnTrips(travelAgency) {
         document.querySelector('.travelers-on-trips').innerHTML = `<h1>Travelers on trips:</h1>
-        <p>${travelAgency.travelersThatAreOnTrips().length}</p>`
+        <p>${travelAgency.travelersThatAreOnTrips(this.date).length}</p>`
     }
 
     searchForUser(travelAgency) {

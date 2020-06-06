@@ -48,8 +48,8 @@ Promise.all([travelers, destinations, trips])
     trips = data[2]
   })
   .then(() => {
-    domUpdates = new DomUpdates()
     date = moment().format('YYYY/MM/DD')
+    domUpdates = new DomUpdates(date)
     onStartUp(domUpdates, destinations)
   })
   .catch(error => {
