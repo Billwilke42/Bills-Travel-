@@ -9,6 +9,7 @@ class Traveler extends User {
                 this.travelerType = user.travelerType;
                 this.trips = this.getUserTrips();
                 this.totalSpent = this.accumulatedTotal(this.trips)
+                this.pendingTrips = this.tripsRequested(this.trips)
             }
     }
 

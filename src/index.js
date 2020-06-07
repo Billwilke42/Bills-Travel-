@@ -13,7 +13,7 @@ import TravelAgency from './TravelAgency'
 import Traveler from './Traveler'
 import moment from 'moment'
 
-let cycle
+
 let travelers;
 let destinations;
 let trips;
@@ -57,14 +57,16 @@ Promise.all([travelers, destinations, trips])
   });
   
   //QuerySelectors
-  let logInButton = document.querySelector('.login-button')
+  const logInButton = document.querySelector('.login-button')
   const usernameInput = document.getElementById('username')
   const passwordInput = document.getElementById('password')
   const mainArea = document.querySelector('.main')
+  // const forwardButton = document.querySelector('forward-button')
+
   
 //Event Listeners 
 logInButton.addEventListener('click', logIn)
-
+mainArea.addEventListener('click', agencyDashboardConditionals)
 //Functions
 function onStartUp(domUpdates, destinations) {
     domUpdates.cycleImages(destinations)
@@ -74,11 +76,8 @@ function logIn() {
   const usernameArray = usernameInput.value.split('')
   const usernameID = parseInt(usernameArray.splice(8, 10).join('')) - 1
   if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
-   
     instantiateTravelAgency()
-   
   } else if (usernameID <= 50 && passwordInput.value === 'travel2020') {
-   
     instantiateTraveler(usernameID)
   } else {
     domUpdates.displayError()
@@ -94,5 +93,14 @@ function instantiateTraveler(usernameID) {
 function instantiateTravelAgency() {
   travelAgency = new TravelAgency(travelers, destinations, trips, date)
   domUpdates.displayAgencyDashboard(travelAgency)
+}
+
+function agencyDashboardConditionals(event) {
+  debugger
+  console.log(event)
+  if(event.target.classList.contains('search-button')) {
+    domUpdates.displaySearchUser(travelAgency)
+  }
+  event.preventDefault()
 }
 

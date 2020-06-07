@@ -22,13 +22,24 @@ class User {
             return total
         }, 0)
         return totalSpent
+        }
     }
-}
+
+    searchForDestination(id) {
+        let destination = this.destinationData.find(destination => destination.id === id)
+        return destination.destination
+    }
 
     agencyMargin(tripData) {
         const expenditure = this.totalExpenditureWithoutProfitForYear(tripData)
         const margin = expenditure * .10
-        return margin
+        return Math.floor(margin)
+        
+    }
+
+    tripsRequested(tripData) {
+        let requestedTrips = tripData.filter(trip => trip.status === 'pending')
+        return requestedTrips
     }
 
     accumulatedTotal(tripData) {
