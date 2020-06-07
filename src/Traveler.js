@@ -1,4 +1,5 @@
 import User from '../src/User.js'
+import moment from 'moment'
 
 class Traveler extends User {
     constructor(travelersData, destinationData, tripsData, user) {
@@ -8,8 +9,9 @@ class Traveler extends User {
                 this.name = user.name;
                 this.travelerType = user.travelerType;
                 this.trips = this.getUserTrips();
-                this.totalSpent = this.accumulatedTotal(this.trips)
+                this.totalSpentForYear = this.accumulatedTotal(this.trips)
                 this.pendingTrips = this.tripsRequested(this.trips)
+                this.totalSpentAllTime = this.totalSpentAllTime(this.trips)
             }
     }
 
@@ -25,14 +27,14 @@ class Traveler extends User {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                'id': trip.id, 
-                'userID': this.id, 
-                'destinationID': destination.id, 
-                'travelers': num, 
-                'date': date, 
-                'duration': numDays, 
-                'status': 'pending', 
-                'suggestedActivities': destination.suggestedActivities
+                "id": Date.now(),
+                "userID": this.id,
+                "destinationID": destination,
+                "travelers": num,
+                "date": date,
+                "duration": numDays,
+                "status": "pending",
+                "suggestedActivities": []
             })
         })
             .then(response => response.json())
@@ -43,7 +45,8 @@ class Traveler extends User {
     }
 
     getEstimatedCost(numTravelers, duration, destinationId) {
-        const destination = this.destinationData.find(destination => destination.id === destinationId)
+        let destinationID = parseInt(destinationId)
+        const destination = this.destinationData.find(destination => destination.id === destinationID)
         let flightsCost = numTravelers * destination.estimatedFlightCostPerPerson;
         let lodgingCost = duration * destination.estimatedLodgingCostPerDay
         const estimatedCost = flightsCost + lodgingCost;

@@ -12,11 +12,6 @@ class TravelAgency extends User {
         }
     }
 
-    // tripsRequested() {
-    //     let requestedTrips = this.tripsData.filter(trip => trip.status === 'pending')
-    //     return requestedTrips
-    // }
-
     travelersThatAreOnTrips(currentDate) {
         let travelersOnTrips = this.tripsData.reduce((currentTrips, trip) => {
             let startDate = moment(trip.date)

@@ -59,7 +59,7 @@ describe('Travel Agency', function() {
             travelAgency = new TravelAgency(travelersData, destinationData, tripsData, currentDate)
         })
         it('should be able to see all requested Trips', function() {
-            travelAgency.tripsRequested()
+            travelAgency.tripsRequested(tripsData)
             expect(travelAgency.requestedTrips).to.deep.equal([
                 {
                     "id": 2,
@@ -104,11 +104,11 @@ describe('Travel Agency', function() {
         })
 
         it('should be able to calculate total Income for the past year', function() {
-            expect(travelAgency.agencyMargin(tripsData)).to.equal(3571.5)
+            expect(travelAgency.agencyMargin(tripsData)).to.equal(3571)
         })
 
         it('should be able to bring back the total people have spent at the agency for the past year' , function() {
-            expect(travelAgency.accumulatedTotal(tripsData)).to.equal(39286.5)
+            expect(travelAgency.accumulatedTotal(tripsData)).to.equal(39286)
         })
 
     // })
