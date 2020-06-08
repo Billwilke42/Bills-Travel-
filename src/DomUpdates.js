@@ -19,7 +19,7 @@ class DomUpdates {
         document.querySelector('.main').innerHTML = `<article class='agency-dashboard'>
         <section class='requested-trips scrollable'><h1>Trips Requested:</h1></section>
         <section class='travelers-on-trips'></section>
-        <section class='search-for-user'></section>
+        <section class='search-for-user scrollable'></section>
         <section class='income'></section>
         </article>`
         this.requestedTrips(travelAgency)
@@ -38,6 +38,7 @@ class DomUpdates {
         let requested = requestedTrips.map(trip => {
            return `
             <section class='pending-trip-card'>
+            <form for=${trip.id}>
             <p class='requested-trip-text'>
             <p class='key'>Trip ID:</p> ${trip.id}
             <p class='key'>Traveler:</p>${travelAgency.searchForUserViaID(trip.userID)}
@@ -45,8 +46,8 @@ class DomUpdates {
             <p class='key'>Start Date:</p> ${trip.date}
             <p class='key'>Duration:</p> ${trip.duration} days.
             </p>
-            <button type='submit' class='approve-trip-button' value='submit'>Approve</button>
-            <button type='submit' class='deny-trip-button' value='submit'>Deny</button>
+            <button type='submit' class='approve-trip-button' form='${trip.id}' value='${trip.id}'>Approve</button>
+            <button type='submit' class='deny-trip-button' value='${trip.id}'>Deny</button>
             </section>`
         }).join(' ')
             document.querySelector('.requested-trips').insertAdjacentHTML('beforeend', requested)
@@ -66,14 +67,17 @@ class DomUpdates {
     }
 
     displaySearchUser(travelAgency) {
+        debugger
         let searchInput = document.querySelector('.search-user');
         document.querySelector('.search-for-user').insertAdjacentHTML('beforeend', 
-            `id: ${travelAgency.searchForUser(searchInput.value).id},
-            name: ${travelAgency.searchForUser(searchInput.value).name},
-            Traveler Type: ${travelAgency.searchForUser(searchInput.value).travelerType},
-            Total Spent For Year: ${travelAgency.searchForUser(searchInput.value).totalSpentForYear}`)
-        }
+            `<p class='key'>id:</p> ${travelAgency.searchForUser(searchInput.value).id},
+            <p class='key'>name:</p> ${travelAgency.searchForUser(searchInput.value).name},
+            <p class='key'>Traveler Type:</p> ${travelAgency.searchForUser(searchInput.value).travelerType},
+            <p class='key'>Total Spent For Year:</p> ${travelAgency.searchForUser(searchInput.value).totalSpentForYear}
+            <p class='key'>Pending Trips:</p> ${travelAgency.searchForUser(searchInput.value).pendingTrips}`)
+
         // trips: ${this.displayTripsInSearch(travelAgency, travelAgency.searchForUser(searchInput.value).trips)},
+    }
 
     displayTripsInSearch(travelAgency, trips) {
         return trips.map(trip => travelAgency.findDestination(trip.destinationID))
@@ -121,7 +125,7 @@ class DomUpdates {
         `<h1>Amount Spent This Year:</h1>
         You have spent $${traveler.accumulatedTotal(traveler.trips)}.00 with Travel Tracker this year.
         <h1>Total Spent with Travel Tracker:</h1>
-        You have spent $${traveler.totalSpentAllTime}.00 all together`
+        You have spent $${traveler.totalSpent}.00 all together`
     }
 
     requestTrip(traveler) {
@@ -157,8 +161,9 @@ class DomUpdates {
     }
 
     pendingTrips(traveler) {
+        console.log(traveler.pendingTrips)
+        debugger
         let pendingTrips = traveler.pendingTrips
-        console.log(pendingTrips)
         document.querySelector('.pending-trips').innerHTML = 
         `<h1>Pending Trips:</h1>`
         let unapprovedTrips = pendingTrips.map(trip =>{
@@ -169,16 +174,15 @@ class DomUpdates {
         <p class='key'>Duration:</p> ${trip.duration} days
         <p class='key'>Status:</p> ${trip.status}</p></div>`
         }).join(' ')
-        console.log(unapprovedTrips)
         document.querySelector('.pending-trips').insertAdjacentHTML('beforeend', unapprovedTrips)
     }
 
-    displayError(traveler) {
-        debugger
-        let form = document.getElementById('form1')
-        form.insertAdjacentHTML('afterend', `ERROR`)
-        this.clearInputs()
-    }
+    // displayError(traveler) {
+    //     debugger
+    //     let form = document.getElementById('form1')
+    //     form.insertAdjacentHTML('afterend', `ERROR`)
+    //     this.clearInputs()
+    // }
 
     cycleImages(destinations) {
         let num = Math.random() * (50 - 0)

@@ -52,7 +52,7 @@ class TravelAgency extends User {
         //     travelerType: user.travelerType,
         //     trips: user.trips,
         //     totalSpent: user.totalSpent
-        // }
+        // }`
         return user.name
         // fetch(`https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/updateTrip/${id}`)
         //     .then(response => response.json())
@@ -74,52 +74,34 @@ class TravelAgency extends User {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              "id": trip.id,
+              "id": trip,
               "status": 'approved'
             })
           })
             .then(response => response.json())
             .then((data) => {
-            console.log('Success:', data) 
+            console.log(`Trip ${trip} has been modified', updatedResource:${data}`, data) 
             })
             .catch(err => console.log(err.message));
     }
 
-    denyTrip() { 
-        fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/updateTrip', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              "id": trip.id,
-              "status": 'approved'
-            })
-          })
-            .then(response => response.json())
-            .then((data) => {
-            console.log('Success:', data) 
-            })
-            .catch(err => console.log(err.message));
-    }
-
-    deleteTrip() {
+    deleteTrip(trip) {
             fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/trips', {
                 method: 'DELETE',
                 headers: {
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  "id": trips.id               
+                  "id": trip               
                 })
               })
                 .then(response => response.json())
                 .then((data) => {
-                console.log('Success:', data) 
+                console.log(`Trip ${trip} has been deleted`, data) 
                 })
                 .catch(err => console.log(err.message))
    }
-
 }
+
 
 export default TravelAgency;
