@@ -34,7 +34,6 @@ class DomUpdates {
     }
 
     requestedTrips(travelAgency, requestedTrips) {
-        console.log('requestTrips', requestedTrips)
         // let requestedTrips = travelAgency.requestedTrips
         let requested = requestedTrips.map(trip => {
            return `
@@ -71,7 +70,10 @@ class DomUpdates {
     displaySearchUser(travelAgency) {
         debugger
         let searchInput = document.querySelector('.search-user');
-        document.querySelector('.display-search').innerHTML =
+        if(travelAgency.searchForUser(searchInput.value) === undefined) {
+           return document.querySelector('.display-search').innerHTML = 'No user found'
+        } else if (travelAgency.searchForUser(searchInput.value) instanceof Object) {
+            document.querySelector('.display-search').innerHTML =
             `<p class='key'>id:</p> ${travelAgency.searchForUser(searchInput.value).id}
             <p class='key'>name:</p> ${travelAgency.searchForUser(searchInput.value).name}
             <p class='key'>Traveler Type:</p> ${travelAgency.searchForUser(searchInput.value).travelerType}
@@ -79,14 +81,8 @@ class DomUpdates {
             `
             this.requestedTrips(travelAgency, travelAgency.searchForUser(searchInput.value).pendingTrips)
             // ${travelAgency.searchForUser(searchInout.value).pendingTrips}`)
-
+        }
         // trips: ${this.displayTripsInSearch(travelAgency, travelAgency.searchForUser(searchInput.value).trips)},
-    }
-
-    displayPendingTripsInSearch(pendingTrips) {
-        // let pendingTripsHTML = pendingTrips.map(trip =)
-        // document.querySelector('.key-pending').insertAdjacentHTML('beforeend', 
-        // )
     }
 
     displayTripsInSearch(travelAgency, trips) {
@@ -95,9 +91,9 @@ class DomUpdates {
 
     income(travelAgency) {
         document.querySelector('.income').innerHTML = `<h1>Total Income for Year:</h1>
-        $${travelAgency.agencyMargin(travelAgency.tripsData)}.00<br>
+        $${travelAgency.agencyMargin(travelAgency.tripsData).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}.00<br>
         <h1>Total Income All Time:</h1>
-        $${travelAgency.totalSpentAllTime(travelAgency.tripsData)}.00`
+        $${travelAgency.totalSpentAllTime(travelAgency.tripsData).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}.00`
     }
 
     travelerDashboard(traveler) {
@@ -133,16 +129,16 @@ class DomUpdates {
     amountSpent(traveler) {
         document.querySelector('.amount-spent').innerHTML = 
         `<h1>Amount Spent This Year:</h1>
-        You have spent $${traveler.accumulatedTotal(traveler.trips)}.00 with Travel Tracker this year.
+        You have spent $${traveler.accumulatedTotal(traveler.trips).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}.00 with Travel Tracker this year.
         <h1>Total Spent with Travel Tracker:</h1>
-        You have spent $${traveler.totalSpent}.00 all together`
+        You have spent $${traveler.totalSpent.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}.00 all together`
     }
 
     requestTrip(traveler) {
         document.querySelector('.trip-request').innerHTML = 
         `<h1>Request a Trip:</h1>
         <form class='form4'>
-        <label for='trip-start-date' class='key'>Start Date:</label>
+        <label for='trip-start-date' class='key'>Start Date, press Enter for dropdown:</label>
         <input type='date' id='trip-start-date' class='start-date-calendar' name='trip-start' min='${this.date = moment().format('YYYY-MM-DD')}' value='${this.date = moment().format('YYYY-MM-DD')}'>
         <br><label for='number-of-days' class='key'>Number of Days:</label>
         <input type='number' id='number-of-days' min='1' max='365' value=''>
@@ -171,7 +167,6 @@ class DomUpdates {
     }
 
     pendingTrips(traveler) {
-        console.log(traveler.pendingTrips)
         debugger
         let pendingTrips = traveler.pendingTrips
         document.querySelector('.pending-trips').innerHTML = 

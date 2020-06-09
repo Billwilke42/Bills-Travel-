@@ -140,15 +140,15 @@ function travelerDashBoardConditionals() {
 function sideBarConditionals(event) {
   if(event.target.classList.contains('logout')) {
     onStartUp(domUpdates, destinations)
-    document.querySelector('.log-in').innerHTML = `
-    <form id='form1'>
-    <h2>Log in:</h2>
-    <input type='text' class='username' aria-label="username"
-    aria-hidden="true" id='username' name='user-name' placeholder="username" value=''><br>
-    <input type='text' class='password' aria-label="password"
-    aria-hidden="true"id='password' name='pass-word' placeholder='password' value=''>
-    </form>
-   <button type='submit' class='login-button' form='form1' value='submit'>Log in</button>`
+    document.querySelector('.log-in').innerHTML = `Refresh Page to log back in`
+  //   <form id='form1'>
+  //   <h2>Log in:</h2>
+  //   <input type='text' class='username' aria-label="username"
+  //   aria-hidden="true" id='username' name='user-name' placeholder="username" value=''><br>
+  //   <input type='text' class='password' aria-label="password"
+  //   aria-hidden="true"id='password' name='pass-word' placeholder='password' value=''>
+  //   </form>
+  //  <button type='submit' class='login-button' form='form1' value='submit'>Log in</button>`
   }
   if(event.target.classList.contains('login-button')) {
     logIn()
