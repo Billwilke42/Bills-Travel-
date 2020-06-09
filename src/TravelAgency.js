@@ -62,12 +62,7 @@ class TravelAgency extends User {
         //     .catch(err => console.log(err.message));
     }
 
-    // searchForDestination(id) {
-    //     let destination = this.destinationData.find(destination => destination.id === id)
-    //     return destination.destination
-    // }
-
-    approveTrip(trip) {
+    approveTrip(trip, travelAgency, domUpdates) {
         fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/updateTrip', {
             method: 'POST',
             headers: {
@@ -82,10 +77,29 @@ class TravelAgency extends User {
             .then((data) => {
             console.log(`Trip ${trip} has been modified', updatedResource:${data}`, data) 
             })
+            .then(data => {
+              this.getTravelerTrips(domUpdates, travelAgency)
+            })
             .catch(err => console.log(err.message));
     }
 
-    deleteTrip(trip) {
+    getTravelerTrips(domUpdates, travelAgency) {
+      fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/trips')
+      .then(response => response.json())
+         .then((data) => {
+            return data
+         }).then(data => {
+          this.requestedTrips = this.tripsRequested(data.trips);
+          this.travelersOnTrips = this.travelersThatAreOnTrips(data.trips);
+          this.totalIncome = this.agencyMargin(data.trips);
+          return data
+          }).then( data => {
+              domUpdates.agencyDashboard(travelAgency)
+          })
+         .catch(err => console.log(err.message));
+  }
+
+    deleteTrip(trip, travelAgency, domUpdates) {
             fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/trips', {
                 method: 'DELETE',
                 headers: {
@@ -98,6 +112,9 @@ class TravelAgency extends User {
                 .then(response => response.json())
                 .then((data) => {
                 console.log(`Trip ${trip} has been deleted`, data) 
+                })
+                .then(data => {
+                  this.getTravelerTrips(domUpdates, travelAgency)
                 })
                 .catch(err => console.log(err.message))
    }

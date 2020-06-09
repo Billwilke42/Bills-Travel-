@@ -116,6 +116,7 @@ h1 {
 
 .pending-trip-card,
 .trip-card {
+  background-color: white;
   border: 5px solid black;
   width: 60%;
   margin: 5px;
@@ -142,5 +143,9 @@ h1 {
 .main-menu-travel-deal {
   font-size: 18px;
   font-family: Arial, Helvetica, sans-serif
+}
+
+.start-date-calendar {
+  padding: 5px;
 }
 

@@ -110,10 +110,10 @@ function agencyDashboardConditionals(event) {
   }
   if(event.target.classList.contains('approve-trip-button')) {
     debugger
-    travelAgency.approveTrip(parseInt(event.target.value))
+    travelAgency.approveTrip(parseInt(event.target.value), travelAgency, domUpdates)
   }
   if(event.target.classList.contains('deny-trip-button')) {
-    travelAgency.deleteTrip(parseInt(event.target.value))
+    travelAgency.deleteTrip(parseInt(event.target.value), travelAgency, domUpdates)
   }
   // event.preventDefault()
 } 
@@ -155,13 +155,5 @@ function sideBarConditionals(event) {
   }
 }
 
-function getTravelerTrips() {
-  fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/trips')
-  .then(response => response.json())
-     .then((data) => {
-        return data
-     })
-     .catch(err => console.log(err.message));
-}
 
 

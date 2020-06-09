@@ -17,12 +17,12 @@ class DomUpdates {
     
     agencyDashboard(travelAgency) {
         document.querySelector('.main').innerHTML = `<article class='agency-dashboard'>
-        <section class='requested-trips scrollable'><h1>Trips Requested:</h1></section>
+        <section class='requested-trips scrollable'></section>
         <section class='travelers-on-trips'></section>
         <section class='search-for-user scrollable'></section>
         <section class='income'></section>
         </article>`
-        this.requestedTrips(travelAgency)
+        this.requestedTrips(travelAgency, travelAgency.requestedTrips)
         this.travelersOnTrips(travelAgency)
         this.searchForUser(travelAgency)
         this.income(travelAgency)
@@ -33,8 +33,9 @@ class DomUpdates {
         this.clearInputs()
     }
 
-    requestedTrips(travelAgency) {
-        let requestedTrips = travelAgency.requestedTrips
+    requestedTrips(travelAgency, requestedTrips) {
+        console.log('requestTrips', requestedTrips)
+        // let requestedTrips = travelAgency.requestedTrips
         let requested = requestedTrips.map(trip => {
            return `
             <section class='pending-trip-card'>
@@ -50,12 +51,12 @@ class DomUpdates {
             <button type='submit' class='deny-trip-button' value='${trip.id}'>Deny</button>
             </section>`
         }).join(' ')
-            document.querySelector('.requested-trips').insertAdjacentHTML('beforeend', requested)
+            document.querySelector('.requested-trips').innerHTML = `<h1>Trips Requested:</h1> ${requested}`
     }
 
     travelersOnTrips(travelAgency) {
         document.querySelector('.travelers-on-trips').innerHTML = `<h1>Travelers on trips:</h1>
-        <p>We have ${travelAgency.travelersThatAreOnTrips(this.date).length} travelers vacationing today. <br>
+        <p>We have ${travelAgency.travelersThatAreOnTrips(this.date).length} travelers vacationing today.<br>
         They are ${travelAgency.travelersThatAreOnTrips(this.date).map(trip => travelAgency.searchForUserViaID(trip.userID)).join(' ')} </p>`
     }
 
@@ -63,20 +64,29 @@ class DomUpdates {
         document.querySelector('.search-for-user').innerHTML = `<h1>Search for Traveler:</h1>
         <form id='form2'>
         <input type='text' class='search-user' id='search' placeholder='Search by name' value=''>
-        <button type='submit' class='search-button form='form2'value='submit'>Search</button>`
+        <button type='submit' class='search-button form='form2'value='submit'>Search</button>
+        <section class='display-search'></section`
     }
 
     displaySearchUser(travelAgency) {
         debugger
         let searchInput = document.querySelector('.search-user');
-        document.querySelector('.search-for-user').insertAdjacentHTML('beforeend', 
-            `<p class='key'>id:</p> ${travelAgency.searchForUser(searchInput.value).id},
-            <p class='key'>name:</p> ${travelAgency.searchForUser(searchInput.value).name},
-            <p class='key'>Traveler Type:</p> ${travelAgency.searchForUser(searchInput.value).travelerType},
+        document.querySelector('.display-search').innerHTML =
+            `<p class='key'>id:</p> ${travelAgency.searchForUser(searchInput.value).id}
+            <p class='key'>name:</p> ${travelAgency.searchForUser(searchInput.value).name}
+            <p class='key'>Traveler Type:</p> ${travelAgency.searchForUser(searchInput.value).travelerType}
             <p class='key'>Total Spent For Year:</p> ${travelAgency.searchForUser(searchInput.value).totalSpentForYear}
-            <p class='key'>Pending Trips:</p> ${travelAgency.searchForUser(searchInput.value).pendingTrips}`)
+            `
+            this.requestedTrips(travelAgency, travelAgency.searchForUser(searchInput.value).pendingTrips)
+            // ${travelAgency.searchForUser(searchInout.value).pendingTrips}`)
 
         // trips: ${this.displayTripsInSearch(travelAgency, travelAgency.searchForUser(searchInput.value).trips)},
+    }
+
+    displayPendingTripsInSearch(pendingTrips) {
+        // let pendingTripsHTML = pendingTrips.map(trip =)
+        // document.querySelector('.key-pending').insertAdjacentHTML('beforeend', 
+        // )
     }
 
     displayTripsInSearch(travelAgency, trips) {
@@ -133,7 +143,7 @@ class DomUpdates {
         `<h1>Request a Trip:</h1>
         <form class='form4'>
         <label for='trip-start-date' class='key'>Start Date:</label>
-        <input type='date' id='trip-start-date' name='trip-start' min='${this.date = moment().format('YYYY-MM-DD')}' value=''>
+        <input type='date' id='trip-start-date' class='start-date-calendar' name='trip-start' min='${this.date = moment().format('YYYY-MM-DD')}' value='${this.date = moment().format('YYYY-MM-DD')}'>
         <br><label for='number-of-days' class='key'>Number of Days:</label>
         <input type='number' id='number-of-days' min='1' max='365' value=''>
         <br><label for='num-travelers' class='key'>Number of Travelers:</label>

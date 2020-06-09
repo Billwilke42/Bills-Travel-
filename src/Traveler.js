@@ -44,7 +44,6 @@ class Traveler extends User {
             return console.log(`'Resource with id ${Date.now()} successfully posted', newResource: ${data}`, data) 
             })
             .then( data => { 
-                console.log('here')
                 this.getTravelerTrips(domUpdates, traveler)
             })
             .catch(err => console.log(err.message));
