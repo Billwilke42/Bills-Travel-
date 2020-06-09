@@ -49,6 +49,7 @@ h1 {
 .log-in {
   background-color: $yellow;
   margin: auto;
+  margin-top: 0px;
   height: 25%;
   width: 75%;
   @include rounded-corners(25px);
@@ -99,6 +100,9 @@ h1 {
   background-color: $comp-white;
   @include rounded-corners(25px);
   border: 1px solid black;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 
@@ -109,3 +113,39 @@ h1 {
 .scrollable {
   overflow-y: auto;
 }
+
+.pending-trip-card,
+.trip-card {
+  background-color: white;
+  border: 5px solid black;
+  width: 60%;
+  margin: 5px;
+  @include rounded-corners(10px);
+  padding: 5px;
+}
+
+.key {
+  font-weight: bold;
+}
+
+.app-name {
+  font-size: 55px;
+  color: black;
+  text-shadow: 5px;
+  text-shadow: 3px 3px $yellow;
+}
+
+.welcome-message {
+  font-size: 25px;
+  font-family: Arial, Helvetica, sans-serif
+}
+
+.main-menu-travel-deal {
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif
+}
+
+.start-date-calendar {
+  padding: 5px;
+}
+

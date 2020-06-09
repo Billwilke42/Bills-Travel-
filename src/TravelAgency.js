@@ -12,11 +12,6 @@ class TravelAgency extends User {
         }
     }
 
-    // tripsRequested() {
-    //     let requestedTrips = this.tripsData.filter(trip => trip.status === 'pending')
-    //     return requestedTrips
-    // }
-
     travelersThatAreOnTrips(currentDate) {
         let travelersOnTrips = this.tripsData.reduce((currentTrips, trip) => {
             let startDate = moment(trip.date)
@@ -57,7 +52,7 @@ class TravelAgency extends User {
         //     travelerType: user.travelerType,
         //     trips: user.trips,
         //     totalSpent: user.totalSpent
-        // }
+        // }`
         return user.name
         // fetch(`https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/updateTrip/${id}`)
         //     .then(response => response.json())
@@ -67,64 +62,63 @@ class TravelAgency extends User {
         //     .catch(err => console.log(err.message));
     }
 
-    // searchForDestination(id) {
-    //     let destination = this.destinationData.find(destination => destination.id === id)
-    //     return destination.destination
-    // }
-
-    approveTrip(trip) {
+    approveTrip(trip, travelAgency, domUpdates) {
         fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/updateTrip', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              "id": trip.id,
+              "id": trip,
               "status": 'approved'
             })
           })
             .then(response => response.json())
             .then((data) => {
-            console.log('Success:', data) 
+            console.log(`Trip ${trip} has been modified', updatedResource:${data}`, data) 
+            })
+            .then(data => {
+              this.getTravelerTrips(domUpdates, travelAgency)
             })
             .catch(err => console.log(err.message));
     }
 
-    denyTrip() { 
-        fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/updateTrip', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              "id": trip.id,
-              "status": 'approved'
-            })
+    getTravelerTrips(domUpdates, travelAgency) {
+      fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/trips')
+      .then(response => response.json())
+         .then((data) => {
+            return data
+         }).then(data => {
+          this.requestedTrips = this.tripsRequested(data.trips);
+          this.travelersOnTrips = this.travelersThatAreOnTrips(data.trips);
+          this.totalIncome = this.agencyMargin(data.trips);
+          return data
+          }).then( data => {
+              domUpdates.agencyDashboard(travelAgency)
           })
-            .then(response => response.json())
-            .then((data) => {
-            console.log('Success:', data) 
-            })
-            .catch(err => console.log(err.message));
-    }
+         .catch(err => console.log(err.message));
+  }
 
-    deleteTrip() {
+    deleteTrip(trip, travelAgency, domUpdates) {
             fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/trips', {
                 method: 'DELETE',
                 headers: {
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  "id": trips.id               
+                  "id": trip               
                 })
               })
                 .then(response => response.json())
                 .then((data) => {
-                console.log('Success:', data) 
+                console.log(`Trip ${trip} has been deleted`, data) 
+                })
+                .then(data => {
+                  this.getTravelerTrips(domUpdates, travelAgency)
                 })
                 .catch(err => console.log(err.message))
    }
-
 }
+
 
 export default TravelAgency;

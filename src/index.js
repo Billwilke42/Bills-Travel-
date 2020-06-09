@@ -12,6 +12,7 @@ import User from './User';
 import TravelAgency from './TravelAgency'
 import Traveler from './Traveler'
 import moment from 'moment'
+import destinationsData from '../test/data/destinations';
 
 
 let travelers;
@@ -57,30 +58,36 @@ Promise.all([travelers, destinations, trips])
   });
   
   //QuerySelectors
-  const logInButton = document.querySelector('.login-button')
-  const usernameInput = document.getElementById('username')
   const passwordInput = document.getElementById('password')
   const mainArea = document.querySelector('.main')
-  // const forwardButton = document.querySelector('forward-button')
-
+  const sidebar = document.querySelector('.side-bar')
+  const logInButton = document.querySelector('.login-button')
+  const usernameInput = document.getElementById('username')
   
-//Event Listeners 
-logInButton.addEventListener('click', logIn)
-mainArea.addEventListener('click', agencyDashboardConditionals)
-//Functions
-function onStartUp(domUpdates, destinations) {
+  
+  //Event Listeners 
+  logInButton.addEventListener('click', logIn)
+  mainArea.addEventListener('click', agencyDashboardConditionals)
+  sidebar.addEventListener('click', sideBarConditionals)
+  mainArea.addEventListener('click', travelerDashBoardConditionals)
+  
+  //Functions
+  
+  function onStartUp(domUpdates, destinations) {
     domUpdates.cycleImages(destinations)
-}
-
-function logIn() {
+  }
+  
+  function logIn() {
   const usernameArray = usernameInput.value.split('')
   const usernameID = parseInt(usernameArray.splice(8, 10).join('')) - 1
   if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
     instantiateTravelAgency()
+    domUpdates.logOut()
   } else if (usernameID <= 50 && passwordInput.value === 'travel2020') {
-    instantiateTraveler(usernameID)
+    instantiateTraveler(usernameID, date)
+    domUpdates.logOut()
   } else {
-    domUpdates.displayError()
+    domUpdates.clearInputs()
   }
   event.preventDefault()
 }
@@ -91,16 +98,62 @@ function instantiateTraveler(usernameID) {
 }
 
 function instantiateTravelAgency() {
+  debugger
   travelAgency = new TravelAgency(travelers, destinations, trips, date)
   domUpdates.displayAgencyDashboard(travelAgency)
 }
 
 function agencyDashboardConditionals(event) {
   debugger
-  console.log(event)
   if(event.target.classList.contains('search-button')) {
     domUpdates.displaySearchUser(travelAgency)
   }
+  if(event.target.classList.contains('approve-trip-button')) {
+    debugger
+    travelAgency.approveTrip(parseInt(event.target.value), travelAgency, domUpdates)
+  }
+  if(event.target.classList.contains('deny-trip-button')) {
+    travelAgency.deleteTrip(parseInt(event.target.value), travelAgency, domUpdates)
+  }
+  // event.preventDefault()
+} 
+
+function travelerDashBoardConditionals() {
+  // debugger
+  let startDate = document.getElementById('trip-start-date')
+  let destinationName = document.getElementById('vacation-destination')
+  let numDays = document.getElementById('number-of-days')
+  let numTravelers = document.getElementById('num-travelers')
+  if(event.target.classList.contains('estimated-cost-button')) {
+    domUpdates.estimatedCost(traveler, numTravelers.value, numDays.value, destinationName.value)
+  }
+  if(event.target.classList.contains('book-trip-button')){
+    let locationID = parseInt(destinationName.value)
+    let intTravelers = parseInt(numTravelers.value)
+    let intDays = parseInt(numDays.value)
+    let firstDays = moment(startDate.value).format('YYYY/MM/DD')
+    traveler.makeTripRequest(intTravelers, firstDays, intDays, locationID, traveler, domUpdates)
+  }
   event.preventDefault()
 }
+
+function sideBarConditionals(event) {
+  if(event.target.classList.contains('logout')) {
+    onStartUp(domUpdates, destinations)
+    document.querySelector('.log-in').innerHTML = `
+    <form id='form1'>
+    <h2>Log in:</h2>
+    <input type='text' class='username' aria-label="username"
+    aria-hidden="true" id='username' name='user-name' placeholder="username" value=''><br>
+    <input type='text' class='password' aria-label="password"
+    aria-hidden="true"id='password' name='pass-word' placeholder='password' value=''>
+    </form>
+   <button type='submit' class='login-button' form='form1' value='submit'>Log in</button>`
+  }
+  if(event.target.classList.contains('login-button')) {
+    logIn()
+  }
+}
+
+
 

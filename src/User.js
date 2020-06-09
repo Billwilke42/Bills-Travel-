@@ -25,6 +25,27 @@ class User {
         }
     }
 
+    totalSpentAllTime(tripData) {
+        if(tripData instanceof Array) {
+            let costFlights, costLodging;
+            let totalSpent = tripData.reduce((total, trip) => {
+                this.destinationData.forEach(destination => {
+                    if(trip.destinationID === destination.id) {
+                        costFlights = destination.estimatedFlightCostPerPerson * trip.travelers
+                        costLodging = destination.estimatedLodgingCostPerDay * trip.duration
+                    } else {
+                        return 0
+                    }
+                    total += costFlights + costLodging
+                })
+                return total
+            }, 0)
+            let margin = totalSpent * .10
+            let total = totalSpent + margin
+            return Math.floor(total)
+        }
+    } 
+
     searchForDestination(id) {
         let destination = this.destinationData.find(destination => destination.id === id)
         return destination.destination
@@ -38,6 +59,7 @@ class User {
     }
 
     tripsRequested(tripData) {
+        console.log(tripData)
         let requestedTrips = tripData.filter(trip => trip.status === 'pending')
         return requestedTrips
     }

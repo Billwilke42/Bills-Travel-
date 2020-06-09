@@ -57,11 +57,11 @@ describe('User', function() {
         })
 
         it('should be able to calculate total Income', function() {
-            expect(user.agencyMargin(tripsData)).to.equal(3571.5)
+            expect(user.agencyMargin(tripsData)).to.equal(3571)
         })
 
         it('should be able to bring back the total people have spent at the agency' , function() {
-            expect(user.accumulatedTotal(tripsData)).to.equal(39286.5)
+            expect(user.accumulatedTotal(tripsData)).to.equal(39286)
         })
     })
 })
