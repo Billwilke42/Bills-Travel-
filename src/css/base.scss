@@ -12,22 +12,24 @@ body {
 
 .side-bar {
   display: flex;
-  // align-self: baseline;
   width: 15vw;
   flex-direction: column;
   flex-wrap: wrap;
-  // border: solid black;
-  // margin: 10px;
   height: 100vh;
   border: 1px solid black;
 }
 
 h1 {
   text-align: center;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+h2 {
+  text-align: center;
 }
 
 #password, #username {
-  width: 70%;
+  width: 80%;
   margin: 10px;
 }
 
@@ -54,19 +56,21 @@ h1 {
   width: 75%;
   @include rounded-corners(25px);
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   border: 1px solid black;
+  text-align: center;
 }
 
 .cycling-images {
-  height: 55%;
-  width: 55%;
+  height: 65vh;
+  width: 55vw;
   padding: 15px;
   background-color: $primary-background;
   @include rounded-corners(25px);
   border: 1px solid black;
+  margin-top: -70px;
 }
 
 .cycling-image {
@@ -105,6 +109,12 @@ h1 {
   flex-direction: column;
 }
 
+.amount-spent,
+.income,
+.travelers-on-trips {
+  font-size: x-large;
+}
+
 
 .hide {
   display: none;
@@ -124,6 +134,36 @@ h1 {
   padding: 5px;
 }
 
+.searched-user {
+  background-color: white;
+  border: 5px solid black;
+  width: 88%;
+  margin: 5px;
+  @include rounded-corners(10px);
+  padding: 5px;
+}
+
+button {
+  background-color: $comp-white;
+  @include rounded-corners(7px);
+  font-weight: bold;
+  font-size: 14px;
+  padding: 5px;
+  margin: 3px;
+  &:hover {
+    background-color: $complement-primary;
+  }
+}
+
+
+.search-button,
+.approve-trip-button,
+.book-trip-button {
+  &:hover {
+    background-color: #90EE90 ;
+  }
+}
+
 .key {
   font-weight: bold;
 }
@@ -136,8 +176,8 @@ h1 {
 }
 
 .welcome-message {
-  font-size: 25px;
-  font-family: Arial, Helvetica, sans-serif
+  font-size: 35px;
+  font-family: 'Helvetica Neue', sans-serif;
 }
 
 .main-menu-travel-deal {
