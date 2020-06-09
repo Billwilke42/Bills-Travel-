@@ -8,17 +8,14 @@ import './css/base.scss';
 import './images/turing-logo.png'
 
 import DomUpdates from './DomUpdates'
-import User from './User';
 import TravelAgency from './TravelAgency'
 import Traveler from './Traveler'
 import moment from 'moment'
-import destinationsData from '../test/data/destinations';
 
 
 let travelers;
 let destinations;
 let trips;
-let user;
 let date;
 let domUpdates;
 let traveler;
@@ -58,10 +55,10 @@ Promise.all([travelers, destinations, trips])
   });
   
   //QuerySelectors
+  const logInButton = document.querySelector('.login-button')
   const passwordInput = document.getElementById('password')
   const mainArea = document.querySelector('.main')
   const sidebar = document.querySelector('.side-bar')
-  const logInButton = document.querySelector('.login-button')
   const usernameInput = document.getElementById('username')
   
   
@@ -71,8 +68,8 @@ Promise.all([travelers, destinations, trips])
   sidebar.addEventListener('click', sideBarConditionals)
   mainArea.addEventListener('click', travelerDashBoardConditionals)
   
-  //Functions
   
+  //Functions
   function onStartUp(domUpdates, destinations) {
     domUpdates.cycleImages(destinations)
   }
@@ -98,18 +95,15 @@ function instantiateTraveler(usernameID) {
 }
 
 function instantiateTravelAgency() {
-  debugger
   travelAgency = new TravelAgency(travelers, destinations, trips, date)
   domUpdates.displayAgencyDashboard(travelAgency)
 }
 
 function agencyDashboardConditionals(event) {
-  debugger
   if(event.target.classList.contains('search-button')) {
     domUpdates.displaySearchUser(travelAgency)
   }
   if(event.target.classList.contains('approve-trip-button')) {
-    debugger
     travelAgency.approveTrip(parseInt(event.target.value), travelAgency, domUpdates)
   }
   if(event.target.classList.contains('deny-trip-button')) {

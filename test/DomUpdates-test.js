@@ -50,33 +50,6 @@ describe('DomUpdates', () => {
     chai.spy.on(domUpdates, "displayError", () => {});
     chai.spy.on(domUpdates, "cycleImages", () => {});
   })
-  
-  
-
-  // I have function updateTraveler inside of my curlys I call searchForTraveler
-  // then I call another function called updateDom or updateheader, and inside of those
-  // examples is where I call document.querySelector. I can spy on the function 
-  // updateDom to see that its been called without having to mock out document.querySelector
-
-
-
-  // it.only('should envoke travelerDashboard and clearInputs when displayAgencyDashboard is called', function() {
-  //   global.document = {};
-  //   let domUpdates = new DomUpdates()
-  //   let spy3 = chai.spy.on(document, ['querySelector', 'innerHTML'], () => {})
-  //   let spy = chai.spy.on(domUpdates, 'allTrips', () => {})
-  //   let spy2 = chai.spy.on(domUpdates, 'amountSpent', () => {})
-  //   domUpdates.travelerDashboard()
-  //   expect(spy).to.have.been.called(1)
-  //   expect(spy2).to.have.been.called(1)
-  // })
-
-  
-  
-  // it('should be able to display the agency dashboard', function() {
-  //   domUpdates.agencyDashboard()
-  //   expect(domUpdates.requestedTrips).to.have.been.called(1);
-  // });
 
   it('should be able to display the agency dashboard', function() {
     domUpdates.displayAgencyDashboard()

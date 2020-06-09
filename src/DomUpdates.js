@@ -34,7 +34,6 @@ class DomUpdates {
     }
 
     requestedTrips(travelAgency, requestedTrips) {
-        // let requestedTrips = travelAgency.requestedTrips
         let requested = requestedTrips.map(trip => {
            return `
             <section class='pending-trip-card'>
@@ -59,7 +58,7 @@ class DomUpdates {
         <br>They are: <ul><li>${travelAgency.travelersThatAreOnTrips(this.date).map(trip => travelAgency.searchForUserViaID(trip.userID)).join(',<li>')}</ul></p>`
     }
 
-    searchForUser(travelAgency) {
+    searchForUser() {
         document.querySelector('.search-for-user').innerHTML = `<h1>Search for Traveler:</h1>
         <form id='form2'>
         <input type='text' class='search-user' id='search' placeholder='Search by name' value=''>
@@ -68,7 +67,6 @@ class DomUpdates {
     }
 
     displaySearchUser(travelAgency) {
-        debugger
         let searchInput = document.querySelector('.search-user');
         if(travelAgency.searchForUser(searchInput.value) === undefined) {
            return document.querySelector('.display-search').innerHTML = 'No user found'
@@ -80,9 +78,7 @@ class DomUpdates {
             <p class='key'>Total Spent:</p> $${travelAgency.searchForUser(searchInput.value).totalSpent.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}.00
             </section>`
             this.requestedTrips(travelAgency, travelAgency.searchForUser(searchInput.value).pendingTrips)
-            // ${travelAgency.searchForUser(searchInout.value).pendingTrips}`)
         }
-        // trips: ${this.displayTripsInSearch(travelAgency, travelAgency.searchForUser(searchInput.value).trips)},
     }
 
     displayTripsInSearch(travelAgency, trips) {
