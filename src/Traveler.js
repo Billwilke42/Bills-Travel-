@@ -17,7 +17,6 @@ class Traveler extends User {
     }
 
     getUserTrips(tripsData) {
-        console.log('tripsData', tripsData)
         const trips = tripsData.filter(trip => trip.userID === this.id)
         return trips
     }

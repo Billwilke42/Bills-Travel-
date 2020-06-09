@@ -59,7 +59,6 @@ class User {
     }
 
     tripsRequested(tripData) {
-        console.log(tripData)
         let requestedTrips = tripData.filter(trip => trip.status === 'pending')
         return requestedTrips
     }

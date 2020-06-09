@@ -26,6 +26,9 @@ class TravelAgency extends User {
 
     searchForUser(name) {
         let userData = this.travelersData.find(traveler => traveler.name.includes(name))
+        // if(userData === undefined) {
+        //   return undefined
+        // } e
         let user = new Traveler(this.travelersData, this.destinationData, this.tripsData, userData)
         // let searchedUser = {
         //     id: user.id,
