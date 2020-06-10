@@ -2,22 +2,17 @@ const chai = require('chai');
 const expect = chai.expect;
 const spies = require("chai-spies");
 chai.use(spies);
-// const chaiFetch = require('chai-fetch');
-// chai.use(chaiFetch);
+
 
 import TravelAgency from '../src/TravelAgency.js'
 import travelersData from './data/travelers.js'
 import destinationData from './data/destinations.js'
 import tripsData from './data/trips.js'
-import User from '../src/User.js'
-import DomUpdates from '../src/DomUpdates.js';
 
 let travelAgency;
-let user;
 
 describe('Travel Agency', function() {
     beforeEach(() => {
-        user = new User(travelersData, destinationData, tripsData)
         travelAgency = new TravelAgency()
     })
 
@@ -56,7 +51,6 @@ describe('Travel Agency', function() {
     describe('Travel Agency Methods', function() {
         beforeEach(() => {
             let currentDate = "2020/06/29"
-            user = new User(travelersData, destinationData, tripsData)
             travelAgency = new TravelAgency(travelersData, destinationData, tripsData, currentDate)
         })
         it('should be able to see all requested Trips', function() {
@@ -155,18 +149,6 @@ describe('Travel Agency', function() {
                 travelAgency.approveTrip()
                 expect(fetch).to.have.been.called(1)
             })
-
-            // it('should be able to delete trip' , function() {
-            //     travelAgency.approveTrip()
-            //     expect(fetch).to.have.been.called(1)
-            // })
-
-            // it('should be able to get traveler trips' , function() {
-            //     travelAgency.getTravelerTrips()
-            //     expect(fetch).to.have.been.called(1)
-        //     })
-        // })
-            
-
+        })
     })
-})})
+})

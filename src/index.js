@@ -106,7 +106,7 @@ function agencyDashboardConditionals(event) {
   if (event.target.classList.contains('approve-trip-button')) {
     travelAgency.approveTrip(parseInt(event.target.value), travelAgency, domUpdates)
   }
-  if(event.target.classList.contains('deny-trip-button')) {
+  if (event.target.classList.contains('deny-trip-button')) {
     travelAgency.deleteTrip(parseInt(event.target.value), travelAgency, domUpdates)
   }
 } 
@@ -119,7 +119,7 @@ function travelerDashBoardConditionals() {
   if (event.target.classList.contains('estimated-cost-button')) {
     domUpdates.estimatedCost(traveler, numTravelers.value, numDays.value, destinationName.value)
   }
-  if (event.target.classList.contains('book-trip-button')){
+  if (event.target.classList.contains('book-trip-button')) {
     let locationID = parseInt(destinationName.value)
     let intTravelers = parseInt(numTravelers.value)
     let intDays = parseInt(numDays.value)
