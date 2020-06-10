@@ -1,4 +1,3 @@
-/* This is an example of using Sass, otherwise plain CSS works too*/
 @import 'variables';
 @import 'mixins';
 
@@ -12,23 +11,29 @@ body {
 
 .side-bar {
   display: flex;
-  // align-self: baseline;
   width: 15vw;
   flex-direction: column;
   flex-wrap: wrap;
-  // border: solid black;
-  // margin: 10px;
   height: 100vh;
   border: 1px solid black;
 }
 
 h1 {
   text-align: center;
+  font-family: 'Helvetica Neue', sans-serif;
+}
+
+h2 {
+  text-align: center;
 }
 
 #password, #username {
-  width: 70%;
+  width: 80%;
   margin: 10px;
+}
+
+.cost-display {
+  font-size: x-large;
 }
 
 .main {
@@ -54,19 +59,21 @@ h1 {
   width: 75%;
   @include rounded-corners(25px);
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   border: 1px solid black;
+  text-align: center;
 }
 
 .cycling-images {
-  height: 55%;
-  width: 55%;
+  height: 65vh;
+  width: 55vw;
   padding: 15px;
   background-color: $primary-background;
   @include rounded-corners(25px);
   border: 1px solid black;
+  margin-top: -70px;
 }
 
 .cycling-image {
@@ -82,7 +89,7 @@ h1 {
   align-items: center;
   height: 98%;
   width: 98%;
-  background-color: $complement-yellow;
+  background-color: $primary-background;
   @include rounded-corners(25px);
   border: 1px solid black;
 }
@@ -97,12 +104,18 @@ h1 {
 .income {
   width: 48.5%;
   height: 48.5%;
-  background-color: $comp-white;
+  background-color: $complement-primary;
   @include rounded-corners(25px);
   border: 1px solid black;
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.amount-spent,
+.income,
+.travelers-on-trips {
+  font-size: x-large;
 }
 
 
@@ -116,12 +129,42 @@ h1 {
 
 .pending-trip-card,
 .trip-card {
-  background-color: white;
+  background-color: $yellow;
   border: 5px solid black;
   width: 60%;
   margin: 5px;
   @include rounded-corners(10px);
   padding: 5px;
+}
+
+.searched-user {
+  background-color: $yellow;
+  border: 5px solid black;
+  width: 88%;
+  margin: 5px;
+  @include rounded-corners(10px);
+  padding: 5px;
+}
+
+button {
+  background-color: $comp-white;
+  @include rounded-corners(7px);
+  font-weight: bold;
+  font-size: 14px;
+  padding: 5px;
+  margin: 3px;
+  &:hover {
+    background-color: $complement-primary;
+  }
+}
+
+
+.search-button,
+.approve-trip-button,
+.book-trip-button {
+  &:hover {
+    background-color: #90EE90 ;
+  }
 }
 
 .key {
@@ -136,16 +179,126 @@ h1 {
 }
 
 .welcome-message {
-  font-size: 25px;
-  font-family: Arial, Helvetica, sans-serif
+  font-size: 35px;
+  font-family: $font;
 }
 
 .main-menu-travel-deal {
   font-size: 18px;
-  font-family: Arial, Helvetica, sans-serif
+  font-family: $font
 }
 
 .start-date-calendar {
   padding: 5px;
+}
+
+@media only screen and (max-width: 1025px) {
+  .app-name {
+    display: none;
+  }
+
+  .log-in {
+    align-self: center;
+    margin-top: 25vh;
+  }
+  
+  .cycling-images {
+    width: 80%;
+    height: 75%;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+
+  body {
+    background: $primary-background;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    flex-direction: column;
+    margin: auto;
+  }
+
+  .traveler-dashboard,
+  .agency-dashboard {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: $yellow;
+  @include rounded-corners(25px);
+  border: none;
+  }
+
+  .all-trips,
+  .amount-spent,
+  .trip-request,
+  .pending-trips,
+  .requested-trips,
+  .travelers-on-trips,
+  .search-for-user,
+  .income {
+    width: 100vw;
+    height: 55%;
+    background-color: $complement-primary;
+    @include rounded-corners(25px);
+    display: flex;
+    align-items: center;
+  }
+
+  .amount-spent,
+  .income,
+  .travelers-on-trips {
+  font-size: large;
+  }
+
+  .side-bar {
+    width: 100vw;
+    height: 20vh;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px solid black;
+  }
+
+  .welcome-message {
+    font-size: large
+  }
+
+  .app-name {
+    display: none;
+  }
+
+  .log-in {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: nowrap;
+    font-size: smaller;
+    margin-top: 3px;
+    height: 95%;
+  }
+
+
+  .cycling-images {
+    height: 40vh;
+    width: 95vw;
+  }
+
+  .main-menu-travel-deal {
+    margin: 5px;
+  }
+
+  .main {
+    width: 100vw;
+    overflow-y: auto;
+    background-color: $yellow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+  }
+
+
 }
 

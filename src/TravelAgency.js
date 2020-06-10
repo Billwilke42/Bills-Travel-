@@ -26,43 +26,14 @@ class TravelAgency extends User {
 
     searchForUser(name) {
         let userData = this.travelersData.find(traveler => traveler.name.includes(name))
-        // if(userData === undefined) {
-        //   return undefined
-        // } e
         let user = new Traveler(this.travelersData, this.destinationData, this.tripsData, userData)
-        // let searchedUser = {
-        //     id: user.id,
-        //     name: user.name,
-        //     travelerType: user.travelerType,
-        //     trips: user.trips,
-        //     totalSpent: user.totalSpent
-        // }
         return user
-        // fetch(`https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/updateTrip/${id}`)
-        //     .then(response => response.json())
-        //     .then((data) => {
-        //         return data
-        //     })
-        //     .catch(err => console.log(err.message));
     }
 
     searchForUserViaID(id) {
-        let userData = this.travelersData.find(traveler => traveler.id === id)
+      let userData = this.travelersData.find(traveler => traveler.id === id)
         let user = new Traveler(this.travelersData, this.destinationData, this.tripsData, userData)
-        // let searchedUser = {
-        //     id: user.id,
-        //     name: user.name,
-        //     travelerType: user.travelerType,
-        //     trips: user.trips,
-        //     totalSpent: user.totalSpent
-        // }`
         return user.name
-        // fetch(`https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/updateTrip/${id}`)
-        //     .then(response => response.json())
-        //     .then((data) => {
-        //         return data
-        //     })
-        //     .catch(err => console.log(err.message));
     }
 
     approveTrip(trip, travelAgency, domUpdates) {
@@ -111,7 +82,7 @@ class TravelAgency extends User {
                 body: JSON.stringify({
                   "id": trip               
                 })
-              })
+            })
                 .then(response => response.json())
                 .then((data) => {
                 console.log(`Trip ${trip} has been deleted`, data) 
@@ -120,7 +91,7 @@ class TravelAgency extends User {
                   this.getTravelerTrips(domUpdates, travelAgency)
                 })
                 .catch(err => console.log(err.message))
-   }
+  }
 }
 
 

@@ -10,6 +10,7 @@ import travelersData from './data/travelers.js'
 import destinationData from './data/destinations.js'
 import tripsData from './data/trips.js'
 import User from '../src/User.js'
+import DomUpdates from '../src/DomUpdates.js';
 
 let travelAgency;
 let user;
@@ -83,6 +84,31 @@ describe('Travel Agency', function() {
                 }
             ])
         })
+
+        it('should see travelers that are currently on trips', function() {
+            expect(travelAgency.requestedTrips).to.deep.equal([
+                {
+                  id: 2,
+                  userID: 35,
+                  destinationID: 2,
+                  travelers: 5,
+                  date: '2020/10/04',
+                  duration: 18,
+                  status: 'pending',
+                  suggestedActivities: []
+                },
+                {
+                  id: 3,
+                  userID: 3,
+                  destinationID: 3,
+                  travelers: 4,
+                  date: '2020/05/22',
+                  duration: 17,
+                  status: 'pending',
+                  suggestedActivities: []
+                }
+              ])
+        })
         
         it('should see travelers that are currently on trips', function() {
             expect(travelAgency.travelersOnTrips).to.deep.equal([
@@ -111,42 +137,36 @@ describe('Travel Agency', function() {
             expect(travelAgency.accumulatedTotal(tripsData)).to.equal(39286)
         })
 
-    // })
-  
-    // describe('Chai-fetch', () => {
-    //     beforeEach(() => mockServer.start(8080));
-    //     afterEach(() => mockServer.stop());
-    
-    //     describe('.responseText', () => {
-    //         it('should match responses with matching bodies', () => {
-    //             mockServer.get('/match').thenReply(200, 'matching body')
-    //             .then(() =>
-    //                 expect(fetch('http://localhost:8080/match')).to.have.responseText('matching body')
-    //             );
-    //         });
-    //     });
-        // it('should be able to search for a user', function() {
-        //     // global.fetch = require("node-fetch");
-        //     expect(travelAgency.searchForUser("Ham Leadbeater")).to.deep.equal({
-        //         id: 1,
-        //         name: 'Ham Leadbeater',
-        //         travelerType: 'relaxer',
-        //         trips: [
-        //             {
-        //                 id: 8,
-        //                 userID: 1,
-        //                 destinationID: 8,
-        //                 travelers: 6,
-        //                 date: '2021/02/07',
-        //                 duration: 4,
-        //                 status: 'approved',
-        //                 suggestedActivities: []
-        //             }
-        //         ],
-        //         totalSpent: 7150
+        it('should be able to search for a user with their name' , function() {
+            expect(travelAgency.searchForUser('Rachael').name).to.equal('Rachael Vaughten')
+        })
+
+        it('should be able to search for a user via their ID and return their name' , function() {
+            expect(travelAgency.searchForUserViaID(3)).to.equal("Sibby Dawidowitsch")
+        })
+    })
+
+    describe('Travel Agency Fetch Calls', function() {
+        beforeEach(() => {
+            travelAgency = new TravelAgency()
+            chai.spy.on(travelAgency, ['approveTrip', 'getTravelerTrips', 'deleteTrip', 'fetch'], () => {})
             
-            
+            it('should be able to post an approved trip' , function() {
+                travelAgency.approveTrip()
+                expect(fetch).to.have.been.called(1)
+            })
+
+            // it('should be able to delete trip' , function() {
+            //     travelAgency.approveTrip()
+            //     expect(fetch).to.have.been.called(1)
+            // })
+
+            // it('should be able to get traveler trips' , function() {
+            //     travelAgency.getTravelerTrips()
+            //     expect(fetch).to.have.been.called(1)
         //     })
         // })
-    });
-})
+            
+
+    })
+})})

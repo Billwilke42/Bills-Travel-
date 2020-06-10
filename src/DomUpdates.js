@@ -2,10 +2,12 @@ import moment from 'moment'
 
 class DomUpdates {
     constructor(date) {
-        this.date = date
+        this.date = date;
+        this.cycle = null;    
     }
 
     displayAgencyDashboard(travelAgency, counter) {
+        clearInterval(this.cycle)
         this.agencyDashboard(travelAgency, counter)
         this.clearInputs()
     }
@@ -18,7 +20,7 @@ class DomUpdates {
     agencyDashboard(travelAgency) {
         document.querySelector('.main').innerHTML = `<article class='agency-dashboard'>
         <section class='requested-trips scrollable'></section>
-        <section class='travelers-on-trips'></section>
+        <section class='travelers-on-trips scrollable'></section>
         <section class='search-for-user scrollable'></section>
         <section class='income'></section>
         </article>`
@@ -29,12 +31,12 @@ class DomUpdates {
     }
 
     displayTravelerDashboard(traveler) {
+        clearInterval(this.cycle)
         this.travelerDashboard(traveler)
         this.clearInputs()
     }
 
     requestedTrips(travelAgency, requestedTrips) {
-        // let requestedTrips = travelAgency.requestedTrips
         let requested = requestedTrips.map(trip => {
            return `
             <section class='pending-trip-card'>
@@ -56,33 +58,30 @@ class DomUpdates {
     travelersOnTrips(travelAgency) {
         document.querySelector('.travelers-on-trips').innerHTML = `<h1>Travelers on trips:</h1>
         <p>We have ${travelAgency.travelersThatAreOnTrips(this.date).length} travelers vacationing today.<br>
-        They are ${travelAgency.travelersThatAreOnTrips(this.date).map(trip => travelAgency.searchForUserViaID(trip.userID)).join(' ')} </p>`
+        <br>They are: <ul><li>${travelAgency.travelersThatAreOnTrips(this.date).map(trip => travelAgency.searchForUserViaID(trip.userID)).join(',<li>')}</ul></p>`
     }
 
-    searchForUser(travelAgency) {
+    searchForUser() {
         document.querySelector('.search-for-user').innerHTML = `<h1>Search for Traveler:</h1>
         <form id='form2'>
         <input type='text' class='search-user' id='search' placeholder='Search by name' value=''>
-        <button type='submit' class='search-button form='form2'value='submit'>Search</button>
+        <button type='submit' class='search-button' form='form2'value='submit'>Search</button>
         <section class='display-search'></section`
     }
 
     displaySearchUser(travelAgency) {
-        debugger
         let searchInput = document.querySelector('.search-user');
         if(travelAgency.searchForUser(searchInput.value) === undefined) {
            return document.querySelector('.display-search').innerHTML = 'No user found'
         } else if (travelAgency.searchForUser(searchInput.value) instanceof Object) {
             document.querySelector('.display-search').innerHTML =
-            `<p class='key'>id:</p> ${travelAgency.searchForUser(searchInput.value).id}
-            <p class='key'>name:</p> ${travelAgency.searchForUser(searchInput.value).name}
+            `<section class='searched-user'><p class='key'>id:</p> ${travelAgency.searchForUser(searchInput.value).id}
+            <p class='key'>Name:</p> ${travelAgency.searchForUser(searchInput.value).name}
             <p class='key'>Traveler Type:</p> ${travelAgency.searchForUser(searchInput.value).travelerType}
-            <p class='key'>Total Spent For Year:</p> ${travelAgency.searchForUser(searchInput.value).totalSpentForYear}
-            `
+            <p class='key'>Total Spent:</p> $${travelAgency.searchForUser(searchInput.value).totalSpent.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}.00
+            </section>`
             this.requestedTrips(travelAgency, travelAgency.searchForUser(searchInput.value).pendingTrips)
-            // ${travelAgency.searchForUser(searchInout.value).pendingTrips}`)
         }
-        // trips: ${this.displayTripsInSearch(travelAgency, travelAgency.searchForUser(searchInput.value).trips)},
     }
 
     displayTripsInSearch(travelAgency, trips) {
@@ -100,7 +99,7 @@ class DomUpdates {
         document.querySelector('.main').innerHTML = `<article class='traveler-dashboard'>
         <section class='all-trips scrollable'></section>
         <section class='amount-spent'></section>
-        <section class='trip-request'></section>
+        <section class='trip-request scrollable'></section>
         <section class='pending-trips scrollable'></section>
         </article>`
         this.allTrips(traveler)
@@ -111,7 +110,7 @@ class DomUpdates {
 
     allTrips(traveler) {
         document.querySelector('.all-trips').innerHTML = 
-        `<h1>All Trips:</h1>`
+        `<h1>All Your Trips with Travel Tracker:</h1>`
         const userTrips = traveler.trips.map(trip => {
             return `
             <div class ='trip-card'>
@@ -137,19 +136,21 @@ class DomUpdates {
     requestTrip(traveler) {
         document.querySelector('.trip-request').innerHTML = 
         `<h1>Request a Trip:</h1>
+
         <form class='form4'>
-        <label for='trip-start-date' class='key'>Start Date, press Enter for dropdown:</label>
-        <input type='date' id='trip-start-date' class='start-date-calendar' name='trip-start' min='${this.date = moment().format('YYYY-MM-DD')}' value='${this.date = moment().format('YYYY-MM-DD')}'>
-        <br><label for='number-of-days' class='key'>Number of Days:</label>
-        <input type='number' id='number-of-days' min='1' max='365' value=''>
+        <label for='trip-start-date' class='key'>Start Date, click and press Enter for dropdown:</label><br>
+        <input type='date' id='trip-start-date' class='start-date-calendar' name='trip-start' min='${this.date = moment().format('YYYY-MM-DD')}' value='${this.date = moment().format('YYYY-MM-DD')}'><br>
+        <br><label for='number-of-days' class='key'>Number of Days:</label><br>
+        <input type='number' id='number-of-days' min='1' max='365' value=''><br>
         <br><label for='num-travelers' class='key'>Number of Travelers:</label>
-        <input type='number' id='num-travelers' min='1' max='12' value=''>
+        <br><input type='number' id='num-travelers' min='1' max='12' value=''><br>
         <br><label for='vacation-destination' class='key'>Destination:</label>
-        <select name='destination-dropdown' id='vacation-destination'>
+        <br><select name='destination-dropdown' id='vacation-destination'>
             ${this.destinationsDropDown(traveler)}
         </select>
         </form>
-        <button type='submit' class='estimated-cost-button' form='form4'>Estimated Cost</button>
+        <br>
+        <button type='submit' class='estimated-cost-button' form='form4'>Estimate Cost</button>
         <div class='cost-display'><div>`
     }
 
@@ -167,7 +168,6 @@ class DomUpdates {
     }
 
     pendingTrips(traveler) {
-        debugger
         let pendingTrips = traveler.pendingTrips
         document.querySelector('.pending-trips').innerHTML = 
         `<h1>Pending Trips:</h1>`
@@ -182,19 +182,13 @@ class DomUpdates {
         document.querySelector('.pending-trips').insertAdjacentHTML('beforeend', unapprovedTrips)
     }
 
-    // displayError(traveler) {
-    //     debugger
-    //     let form = document.getElementById('form1')
-    //     form.insertAdjacentHTML('afterend', `ERROR`)
-    //     this.clearInputs()
-    // }
-
-    cycleImages(destinations) {
+    cycleImages(destinations, cycle) {
         let num = Math.random() * (50 - 0)
         let index = Math.round(num)
         document.querySelector('.main').innerHTML = `<header class='welcome-message'><h2>Welcome to Travel Tracker</h2></header>
          <section class='images'><img src="${destinations[index].image}" alt="${destinations[index].image.alt}" class='cycling-images'>
-         <p class='main-menu-travel-deal'>Flights to ${destinations[index].destination} for $${destinations[index].estimatedFlightCostPerPerson}.00 with lodging starting at $${destinations[index].estimatedLodgingCostPerDay}.00</p></section>`
+         <p class='main-menu-travel-deal'>Flights to ${destinations[index].destination} for $${destinations[index].estimatedFlightCostPerPerson}.00 with lodging at $${destinations[index].estimatedLodgingCostPerDay}.00 and many more deals!</p></section>`
+         this.cycle = setInterval(this.cycleImages, 4000, destinations, cycle)
     }
 
     logOut() {

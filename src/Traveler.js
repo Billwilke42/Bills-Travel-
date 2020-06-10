@@ -1,6 +1,4 @@
 import User from '../src/User.js'
-import DomUpdates from './DomUpdates.js'
-import moment from 'moment'
 
 class Traveler extends User {
     constructor(travelersData, destinationData, tripsData, user) {

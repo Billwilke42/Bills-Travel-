@@ -8,17 +8,14 @@ import './css/base.scss';
 import './images/turing-logo.png'
 
 import DomUpdates from './DomUpdates'
-import User from './User';
 import TravelAgency from './TravelAgency'
 import Traveler from './Traveler'
 import moment from 'moment'
-import destinationsData from '../test/data/destinations';
 
 
 let travelers;
 let destinations;
 let trips;
-let user;
 let date;
 let domUpdates;
 let traveler;
@@ -58,10 +55,10 @@ Promise.all([travelers, destinations, trips])
   });
   
   //QuerySelectors
+  const logInButton = document.querySelector('.login-button')
   const passwordInput = document.getElementById('password')
   const mainArea = document.querySelector('.main')
   const sidebar = document.querySelector('.side-bar')
-  const logInButton = document.querySelector('.login-button')
   const usernameInput = document.getElementById('username')
   
   
@@ -71,8 +68,8 @@ Promise.all([travelers, destinations, trips])
   sidebar.addEventListener('click', sideBarConditionals)
   mainArea.addEventListener('click', travelerDashBoardConditionals)
   
-  //Functions
   
+  //Functions
   function onStartUp(domUpdates, destinations) {
     domUpdates.cycleImages(destinations)
   }
@@ -98,28 +95,23 @@ function instantiateTraveler(usernameID) {
 }
 
 function instantiateTravelAgency() {
-  debugger
   travelAgency = new TravelAgency(travelers, destinations, trips, date)
   domUpdates.displayAgencyDashboard(travelAgency)
 }
 
 function agencyDashboardConditionals(event) {
-  debugger
   if(event.target.classList.contains('search-button')) {
     domUpdates.displaySearchUser(travelAgency)
   }
   if(event.target.classList.contains('approve-trip-button')) {
-    debugger
     travelAgency.approveTrip(parseInt(event.target.value), travelAgency, domUpdates)
   }
   if(event.target.classList.contains('deny-trip-button')) {
     travelAgency.deleteTrip(parseInt(event.target.value), travelAgency, domUpdates)
   }
-  // event.preventDefault()
 } 
 
 function travelerDashBoardConditionals() {
-  // debugger
   let startDate = document.getElementById('trip-start-date')
   let destinationName = document.getElementById('vacation-destination')
   let numDays = document.getElementById('number-of-days')
@@ -140,18 +132,7 @@ function travelerDashBoardConditionals() {
 function sideBarConditionals(event) {
   if(event.target.classList.contains('logout')) {
     onStartUp(domUpdates, destinations)
-    document.querySelector('.log-in').innerHTML = `Refresh Page to log back in`
-  //   <form id='form1'>
-  //   <h2>Log in:</h2>
-  //   <input type='text' class='username' aria-label="username"
-  //   aria-hidden="true" id='username' name='user-name' placeholder="username" value=''><br>
-  //   <input type='text' class='password' aria-label="password"
-  //   aria-hidden="true"id='password' name='pass-word' placeholder='password' value=''>
-  //   </form>
-  //  <button type='submit' class='login-button' form='form1' value='submit'>Log in</button>`
-  }
-  if(event.target.classList.contains('login-button')) {
-    logIn()
+    document.querySelector('.log-in').innerHTML = `<h3>Refresh Page to log back in!</h3>`
   }
 }
 
