@@ -1,4 +1,6 @@
-# Bills Travel Tracker
+# Turing School of Software and Design Mod 2 Final Project
+
+## Bill's Travel Tracker
 
 ## Setup
 
@@ -30,6 +32,7 @@ npm install
 5. SRP and DRY code
 6. Create a DomUpdates file to handle DOM changes
 7. Get more practice with SASS
+
 
 ## Contributor
 
