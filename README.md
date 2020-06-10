@@ -16,7 +16,7 @@ npm install
 
 ## GIF
 
-![Traveler](<iframe src="https://giphy.com/embed/Ss5IpNutb173Rvhaua" width="480" height="254" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/Ss5IpNutb173Rvhaua">via GIPHY</a></p>)
+![Traveler](https://giphy.com/embed/Ss5IpNutb173Rvhaua)
 ![TravelAgency](https://media.giphy.com/media/ZccjBpcVa3EailBzki/giphy.gif)
 
 
