@@ -2,10 +2,12 @@ import moment from 'moment'
 
 class DomUpdates {
     constructor(date) {
-        this.date = date
+        this.date = date;
+        this.cycle = null;
     }
 
     displayAgencyDashboard(travelAgency, counter) {
+        clearInterval(this.cycle)
         this.agencyDashboard(travelAgency, counter)
         this.clearInputs()
     }
@@ -29,6 +31,7 @@ class DomUpdates {
     }
 
     displayTravelerDashboard(traveler) {
+        clearInterval(this.cycle)
         this.travelerDashboard(traveler)
         this.clearInputs()
     }
@@ -180,12 +183,13 @@ class DomUpdates {
         document.querySelector('.pending-trips').insertAdjacentHTML('beforeend', unapprovedTrips)
     }
 
-    cycleImages(destinations) {
+    cycleImages(destinations, cycle) {
         let num = Math.random() * (50 - 0)
         let index = Math.round(num)
         document.querySelector('.main').innerHTML = `<header class='welcome-message'><h2>Welcome to Travel Tracker</h2></header>
          <section class='images'><img src="${destinations[index].image}" alt="${destinations[index].image.alt}" class='cycling-images'>
          <p class='main-menu-travel-deal'>Flights to ${destinations[index].destination} for $${destinations[index].estimatedFlightCostPerPerson}.00 with lodging at $${destinations[index].estimatedLodgingCostPerDay}.00 and many more deals!</p></section>`
+         this.cycle = setInterval(this.cycleImages, 4000, destinations, cycle)
     }
 
     logOut() {

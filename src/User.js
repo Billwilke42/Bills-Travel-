@@ -1,9 +1,11 @@
 class User {
     constructor(travelersData, destinationData, tripsData, date) {
-        this.travelersData = travelersData;
-        this.destinationData = destinationData;
-        this.tripsData = tripsData;
-        this.currentDate = date
+        if(travelersData, destinationData, tripsData) {
+            this.travelersData = travelersData;
+            this.destinationData = destinationData;
+            this.tripsData = tripsData;
+            this.currentDate = date;
+        }
     }
 
     totalExpenditureWithoutProfitForYear(tripData) {
@@ -54,24 +56,23 @@ class User {
     agencyMargin(tripData) {
         const expenditure = this.totalExpenditureWithoutProfitForYear(tripData)
         const margin = expenditure * .10
-        return Math.floor(margin)
-        
+        return Math.floor(margin)    
     }
 
     tripsRequested(tripData) {
-        let requestedTrips = tripData.filter(trip => trip.status === 'pending')
-        return requestedTrips
+        if(tripData instanceof Array) {
+            let requestedTrips = tripData.filter(trip => trip.status === 'pending')
+            return requestedTrips
+        }
     }
 
     accumulatedTotal(tripData) {
-        const expenditure = this.totalExpenditureWithoutProfitForYear(tripData) 
-        const margin = this.agencyMargin(tripData)
-        const total = expenditure + margin
-        return total
-    }
-
-    logIn() {
-
+        if(tripData instanceof Array) {
+            const expenditure = this.totalExpenditureWithoutProfitForYear(tripData) 
+            const margin = this.agencyMargin(tripData)
+            const total = expenditure + margin
+            return total
+        }
     }
 }
 

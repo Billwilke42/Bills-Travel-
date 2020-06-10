@@ -82,7 +82,7 @@ class TravelAgency extends User {
                 body: JSON.stringify({
                   "id": trip               
                 })
-              })
+            })
                 .then(response => response.json())
                 .then((data) => {
                 console.log(`Trip ${trip} has been deleted`, data) 
@@ -91,7 +91,7 @@ class TravelAgency extends User {
                   this.getTravelerTrips(domUpdates, travelAgency)
                 })
                 .catch(err => console.log(err.message))
-   }
+  }
 }
 
 

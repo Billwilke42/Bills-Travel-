@@ -56,12 +56,65 @@ describe('User', function() {
             expect(user.totalExpenditureWithoutProfitForYear(tripsData)).to.equal(35715)
         })
 
+        it('should return undefined if improper data is given', function() {
+            let data = {}
+            expect(user.totalExpenditureWithoutProfitForYear(data)).to.equal(undefined)
+        })
+
+        it('should get the total spent of all customers', function() {
+            expect(user.totalSpentAllTime(tripsData)).to.equal(47657)
+        })
+
+        it('should return undefined if improper data is given', function() {
+            let data = {}
+            expect(user.totalSpentAllTime(data)).to.equal(undefined)
+        })
+
         it('should be able to calculate total Income', function() {
             expect(user.agencyMargin(tripsData)).to.equal(3571)
         })
 
+        it('should be able to search for a destination', function() {
+            expect(user.searchForDestination(1)).to.equal('Lima, Peru')
+        })
+
+        it('should return the trips requested', function() {
+            expect(user.tripsRequested(tripsData)).to.deep.equal([
+                {
+                  id: 2,
+                  userID: 35,
+                  destinationID: 2,
+                  travelers: 5,
+                  date: '2020/10/04',
+                  duration: 18,
+                  status: 'pending',
+                  suggestedActivities: []
+                },
+                {
+                  id: 3,
+                  userID: 3,
+                  destinationID: 3,
+                  travelers: 4,
+                  date: '2020/05/22',
+                  duration: 17,
+                  status: 'pending',
+                  suggestedActivities: []
+                }
+              ])
+        })
+
+        it('should return undefined if improper data is given', function() {
+            let data = {}
+            expect(user.tripsRequested(data)).to.equal(undefined)
+        })
+
         it('should be able to bring back the total people have spent at the agency' , function() {
             expect(user.accumulatedTotal(tripsData)).to.equal(39286)
+        })
+
+        it('should return undefined if improper data is given', function() {
+            let data = {}
+            expect(user.accumulatedTotal(data)).to.equal(undefined)
         })
     })
 })
