@@ -16,6 +16,8 @@ npm install
 
 4. Go to `http://localhost:8080/` in your browser and you should see the page!
 
+5. When ready to quit hit `ctrl + c` in your terminal to stop the server.
+
 ## GIF
 
   <a href="https://media.giphy.com/media/Ss5IpNutb173Rvhaua/giphy-downsized.gif"><img          src="https://media.giphy.com/media/Ss5IpNutb173Rvhaua/giphy-downsized.gif"/></a>
