@@ -5,7 +5,7 @@ import moment from 'moment'
 class TravelAgency extends User {
     constructor(travelersData, destinationData, tripsData, currentDate) {
         super(travelersData, destinationData, tripsData)
-        if(travelersData, destinationData, tripsData) {
+        if (travelersData, destinationData, tripsData) {
             this.requestedTrips = this.tripsRequested(tripsData);
             this.travelersOnTrips = this.travelersThatAreOnTrips(currentDate);
             this.totalIncome = this.agencyMargin(tripsData);

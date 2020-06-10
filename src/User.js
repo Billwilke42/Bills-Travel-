@@ -1,6 +1,6 @@
 class User {
     constructor(travelersData, destinationData, tripsData, date) {
-        if(travelersData, destinationData, tripsData) {
+        if (travelersData, destinationData, tripsData) {
             this.travelersData = travelersData;
             this.destinationData = destinationData;
             this.tripsData = tripsData;
@@ -9,7 +9,7 @@ class User {
     }
 
     totalExpenditureWithoutProfitForYear(tripData) {
-        if(tripData instanceof Array) {
+        if (tripData instanceof Array) {
         let costFlights, costLodging;
         let totalSpent = tripData.reduce((total, trip) => {
             this.destinationData.forEach(destination => {
@@ -28,7 +28,7 @@ class User {
     }
 
     totalSpentAllTime(tripData) {
-        if(tripData instanceof Array) {
+        if (tripData instanceof Array) {
             let costFlights, costLodging;
             let totalSpent = tripData.reduce((total, trip) => {
                 this.destinationData.forEach(destination => {
@@ -60,7 +60,7 @@ class User {
     }
 
     tripsRequested(tripData) {
-        if(tripData instanceof Array) {
+        if (tripData instanceof Array) {
             let requestedTrips = tripData.filter(trip => trip.status === 'pending')
             return requestedTrips
         }

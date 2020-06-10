@@ -77,7 +77,7 @@ Promise.all([travelers, destinations, trips])
   function logIn() {
   const usernameArray = usernameInput.value.split('')
   const usernameID = parseInt(usernameArray.splice(8, 10).join('')) - 1
-  if(usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
+  if (usernameInput.value === 'agency' && passwordInput.value === 'travel2020') {
     instantiateTravelAgency()
     domUpdates.logOut()
   } else if (usernameID <= 50 && passwordInput.value === 'travel2020') {
@@ -100,10 +100,10 @@ function instantiateTravelAgency() {
 }
 
 function agencyDashboardConditionals(event) {
-  if(event.target.classList.contains('search-button')) {
+  if (event.target.classList.contains('search-button')) {
     domUpdates.displaySearchUser(travelAgency)
   }
-  if(event.target.classList.contains('approve-trip-button')) {
+  if (event.target.classList.contains('approve-trip-button')) {
     travelAgency.approveTrip(parseInt(event.target.value), travelAgency, domUpdates)
   }
   if(event.target.classList.contains('deny-trip-button')) {
@@ -116,10 +116,10 @@ function travelerDashBoardConditionals() {
   let destinationName = document.getElementById('vacation-destination')
   let numDays = document.getElementById('number-of-days')
   let numTravelers = document.getElementById('num-travelers')
-  if(event.target.classList.contains('estimated-cost-button')) {
+  if (event.target.classList.contains('estimated-cost-button')) {
     domUpdates.estimatedCost(traveler, numTravelers.value, numDays.value, destinationName.value)
   }
-  if(event.target.classList.contains('book-trip-button')){
+  if (event.target.classList.contains('book-trip-button')){
     let locationID = parseInt(destinationName.value)
     let intTravelers = parseInt(numTravelers.value)
     let intDays = parseInt(numDays.value)
@@ -130,7 +130,7 @@ function travelerDashBoardConditionals() {
 }
 
 function sideBarConditionals(event) {
-  if(event.target.classList.contains('logout')) {
+  if (event.target.classList.contains('logout')) {
     onStartUp(domUpdates, destinations)
     document.querySelector('.log-in').innerHTML = `<h3>Refresh Page to log back in!</h3>`
   }

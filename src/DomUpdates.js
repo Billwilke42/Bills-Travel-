@@ -71,7 +71,7 @@ class DomUpdates {
 
     displaySearchUser(travelAgency) {
         let searchInput = document.querySelector('.search-user');
-        if(travelAgency.searchForUser(searchInput.value) === undefined) {
+        if (travelAgency.searchForUser(searchInput.value) === undefined) {
            return document.querySelector('.display-search').innerHTML = 'No user found'
         } else if (travelAgency.searchForUser(searchInput.value) instanceof Object) {
             document.querySelector('.display-search').innerHTML =
