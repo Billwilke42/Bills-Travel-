@@ -19,6 +19,28 @@ describe('DomUpdates', () => {
   it('should be a function', function() {
     expect(DomUpdates).to.be.a('function');
   });
+
+  it('should be an instance of DomUpdates', function() {
+    let domUpdates = new DomUpdates()
+    expect(domUpdates).to.be.an.instanceof(DomUpdates);
+  });
+
+  it('should have a date property', function() {
+    date = moment().format('YYYY/MM/DD')
+    let domUpdates = new DomUpdates(date)
+    expect(domUpdates.date).to.equal(date);
+  });
+
+  it('should have a cycle property value of null', function() {
+    let domUpdates = new DomUpdates()
+    expect(domUpdates.cycle).to.equal(null);
+  });
+
+  it('should not require an argument to create a new DomUpdates', () => {
+    expect(() => {
+      new DomUpdates() 
+    }).to.not.throw(Error);
+});
   
   it('should envoke agencyDashboard and clearInputs when displayAgencyDashboard is called', function() {
     let domUpdates = new DomUpdates()
@@ -59,7 +81,7 @@ describe('DomUpdates', () => {
     it('should envoke requestedTrips, travelersOnTrips, searchForUser, and income when displayAgencyDashboard is called', function() {
     global.document = {};
     domUpdates = new DomUpdates()
-    date = date = moment().format('YYYY/MM/DD')
+    date = moment().format('YYYY/MM/DD')
     traveler = new TravelAgency(travelersData, destinationData, tripsData, date)
     let spy = chai.spy.on(domUpdates, 'requestedTrips', () => {})
     let spy2 = chai.spy.on(domUpdates, 'travelersOnTrips', () => {})

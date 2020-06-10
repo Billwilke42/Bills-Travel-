@@ -3,7 +3,7 @@ import moment from 'moment'
 class DomUpdates {
     constructor(date) {
         this.date = date;
-        this.cycle = null;
+        this.cycle = null;    
     }
 
     displayAgencyDashboard(travelAgency, counter) {
@@ -168,7 +168,6 @@ class DomUpdates {
     }
 
     pendingTrips(traveler) {
-        debugger
         let pendingTrips = traveler.pendingTrips
         document.querySelector('.pending-trips').innerHTML = 
         `<h1>Pending Trips:</h1>`
