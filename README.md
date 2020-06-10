@@ -18,11 +18,7 @@ npm install
 
   <a href="https://media.giphy.com/media/Ss5IpNutb173Rvhaua/giphy-downsized.gif"><img          src="https://media.giphy.com/media/Ss5IpNutb173Rvhaua/giphy-downsized.gif"/></a>
 
-  <a href="https://media.giphy.com/media/ZccjBpcVa3EailBzki/giphy.gif"><img          src="https://media.giphy.com/media/ZccjBpcVa3EailBzki/giphy.gif"/></a>
-
-
-![](https://media.giphy.com/media/Ss5IpNutb173Rvhaua/giphy.gif)
-![TravelAgency](https://media.giphy.com/media/ZccjBpcVa3EailBzki/giphy.gif)
+  <a href="https://media.giphy.com/media/ZccjBpcVa3EailBzki/giphy-downsized.gif"><img          src="https://media.giphy.com/media/ZccjBpcVa3EailBzki/giphy-downsized.gif"/></a>
 
 
 ## Learning Goals
