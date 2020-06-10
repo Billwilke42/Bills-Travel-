@@ -16,7 +16,7 @@ npm install
 
 ## GIF
 
-  <a href="https://giphy.com/gifs/ZccjBpcVa3EailBzki/html5"><img          src="https://giphy.com/gifs/ZccjBpcVa3EailBzki/html5"/></a>
+  <a href="https://media.giphy.com/media/Ss5IpNutb173Rvhaua/giphy-downsized.gif"><img          src="https://media.giphy.com/media/Ss5IpNutb173Rvhaua/giphy-downsized.gif"/></a>
 
   <a href="https://media.giphy.com/media/ZccjBpcVa3EailBzki/giphy.gif"><img          src="https://media.giphy.com/media/ZccjBpcVa3EailBzki/giphy.gif"/></a>
 
