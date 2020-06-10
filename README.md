@@ -25,8 +25,8 @@ npm install
 
 ## Learning Goals
 
-1. Utulize APIs 
-2. Utulize Fetch: GET, POST, & DELETER
+1. Utilize APIs 
+2. Utilize Fetch: GET, POST, & DELETER
 3. Testing all files, including sad paths
 4. Testing with Chai Spies
 5. SRP and DRY code
