@@ -16,8 +16,8 @@ npm install
 
 ## GIF
 
-![](https://media.giphy.com/media/Ss5IpNutb173Rvhaua/giphy.gif)
-![](https://media.giphy.com/media/ZccjBpcVa3EailBzki/giphy.gif)
+![Traveler](https://media.giphy.com/media/Ss5IpNutb173Rvhaua/giphy.gif)
+![TravelAgency](https://media.giphy.com/media/ZccjBpcVa3EailBzki/giphy.gif)
 
 
 ## Learning Goals
